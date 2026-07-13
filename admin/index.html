@@ -1,32 +1,7 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Admin</title> <script>
-/* ══════════════════════════════════════════════════════════════════════
-   LAYAW BOOKING SYSTEM — CLIENT CONFIG
-   ─────────────────────────────────────────────────────────────────────
-   This is the ONLY part of this file you edit for a new client.
-   Everything else (business name, colours, logo, hours, rates, contact)
-   comes from Firestore and is editable in the Owner Dashboard.
-
-   1. Create the client's Firebase project, then paste its web config here.
-      Firebase Console → Project settings → Your apps → Web app → Config
-   2. Register the site in App Check (reCAPTCHA v3) and paste the site key.
-      Firebase Console → App Check → Apps → Register
-   3. Paste the client's logo URL (used only as a fallback before Firestore
-      loads; the real logo is set in Owner Dashboard → Settings).
-
-   Use the SAME values in all pages: index.html, status.html, confirm.html,
-   admin/index.html, owner/index.html
-   ══════════════════════════════════════════════════════════════════════ */
-const firebaseConfig = {
-  apiKey:            "AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
-  authDomain:        "layaw-pickleball.firebaseapp.com",
-  projectId:         "layaw-pickleball",
-  storageBucket:     "layaw-pickleball.firebasestorage.app",
-  messagingSenderId: "940525720373",
-  appId:             "1:940525720373:web:dfbe3e353e1402bf27727c"
-};
-const APPCHECK_SITE_KEY = "6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09";
-const CLIENT_LOGO = "";
-</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--pos:#2747E8;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--open-bg:#15321F;--open-tx:#48A768;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Admin</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
+authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
+storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
+appId:"1:940525720373:web:002a4cf854c184d00105f4"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--pos:#2747E8;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--open-bg:#15321F;--open-tx:#48A768;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%;overflow-x:hidden}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -131,6 +106,8 @@ table.sched td.book-cell .stt{font-size:10px;letter-spacing:.08em;font-weight:80
 table.sched td.book-cell.confirmed .stt{color:var(--conf-tx)}
 table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .scell-open{background:var(--open-bg);color:var(--open-tx);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
+.scell-blocked{background:#3a2416;color:#E0954A;border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
+.scell-na{background:var(--past-bg,#1b2430);color:var(--past-tx,#7C8DA6);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .cal-head h3{margin:0}
 .btn-walk{background:var(--green);color:#fff;border:none;border-radius:10px;padding:9px 14px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
@@ -178,6 +155,10 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .cav-hint{font-size:12px;color:var(--muted);margin-top:8px}
 .cav-mini{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
 .cav-slots{display:flex;flex-wrap:wrap;gap:7px}
+.mc-courts{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.mc-court{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--elev);cursor:pointer;user-select:none}
+.mc-court.on{border-color:var(--green);background:rgba(255,255,255,.04)}
+.mc-court input{width:16px;height:16px;accent-color:var(--green);cursor:pointer;flex:none}
 .cav-slot-actions{display:flex;gap:14px;margin-bottom:9px}
 .cav-linkbtn{background:none;border:none;color:var(--accent,#2747E8);font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:0;text-decoration:underline}
 .cav-slot{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--elev);color:var(--text-2);font-size:12px;font-weight:700;cursor:pointer;user-select:none}
@@ -254,12 +235,13 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <tbody id="schedBody">
 </tbody>
 </table>
-</div> </div> </div> </div> </div> </div> </div>
-<div class="card cs-card" style="margin:0 16px 16px">
-<div class="view-head"><h3>Court Status</h3></div>
+</div> </div> </div> </div> </div>
+<div class="card cs-card" style="margin-top:16px">
+<div class="view-head" style="display:flex;align-items:center;gap:12px"><h3>Court Status</h3><button id="multiCourtBtn" class="btn" style="width:auto;flex:none;margin-left:auto;padding:9px 15px;font-size:12.5px;white-space:nowrap">Block multiple courts</button></div>
 <div id="courtStatus" class="court-status-grid"></div>
 </div>
-<div class="overlay" id="courtOverlay">
+</div>
+ </div> <div class="overlay" id="courtOverlay">
 <div class="modal" style="max-width:480px;max-height:88vh;overflow-y:auto">
 <h3 id="courtModalTitle" style="margin-bottom:4px">Court</h3>
 <p class="sub" style="margin-bottom:16px">Manage this court's availability. Each control is separate — use only what you need.</p>
@@ -299,6 +281,42 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <div id="cavBlockList" class="cav-blocklist"><div class="cav-empty">No blocks set.</div></div>
 </div>
 <button class="btn-ghost" id="courtModalClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
+</div>
+</div>
+<div class="overlay" id="multiCourtOverlay">
+<div class="modal" style="max-width:520px;max-height:88vh;overflow-y:auto">
+<h3 style="margin-bottom:4px">Block multiple courts</h3>
+<p class="sub" style="margin-bottom:16px">Pick the courts, then apply any of the controls below. Each control is separate — use only what you need.</p>
+<div class="cav-section">
+<div class="cav-label">Courts</div>
+<div class="cav-slot-actions"><button id="mcSelectAllCourts" class="cav-linkbtn" type="button">Select all courts</button><button id="mcClearCourts" class="cav-linkbtn" type="button">Clear all</button></div>
+<div id="mcCourtList" class="mc-courts"></div>
+<div class="cav-hint" id="mcCount">No courts selected.</div>
+</div>
+<div class="cav-section">
+<div class="cav-label">Overall availability</div>
+<div style="display:flex;gap:10px">
+<button id="mcMarkNA" class="btn" style="flex:1;padding:11px" disabled>Mark Not Available</button>
+<button id="mcMarkAvail" class="btn-ghost" style="flex:1;padding:11px" disabled>Mark Available</button>
+</div>
+<div class="cav-hint">Turns the selected courts fully off or back on (all dates, all times).</div>
+</div>
+<div class="cav-section">
+<div class="cav-label">Block a date range</div>
+<div style="display:flex;gap:10px">
+<div style="flex:1"><label class="cav-mini">Start date</label><input type="date" id="mcStart" class="fld-input"/></div>
+<div style="flex:1"><label class="cav-mini">End date</label><input type="date" id="mcEnd" class="fld-input"/></div>
+</div>
+<div class="cav-hint" style="margin-top:6px">For a single day, set the same date in both.</div>
+<div class="cav-slot-actions" style="margin-top:10px"><button id="mcSelectAllSlots" class="cav-linkbtn" type="button">Select all (whole day)</button><button id="mcClearSlots" class="cav-linkbtn" type="button">Clear all</button></div>
+<div id="mcSlots" class="cav-slots"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button id="mcBlock" class="btn" style="flex:1;padding:11px" disabled>Block</button>
+<button id="mcUnblock" class="btn-ghost" style="flex:1;padding:11px" disabled>Unblock</button>
+</div>
+<div class="cav-hint">Applies to every selected court, on every day from start to end date.</div>
+</div>
+<button class="btn-ghost" id="multiCourtClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
 </div>
 </div>
 <div class="backdrop" id="backdrop">
@@ -351,7 +369,7 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 </div> </div> <div class="walk-err" id="walkErr">
 </div> <div class="modal-actions"> <button class="btn-ghost" id="walkCancel">Cancel</button> <button class="act act-confirm" id="walkConfirm">Confirm &amp; Save</button> </div> </div>
 </div> <div id="boot" class="loading">Loading…</div> <div class="toast" id="toast">
-</div> <script>let db,auth,viewYear,viewMonth,SETTINGS=null,COURTS=[],dayUnsub=null,pendingUnsub=null,selectedDate=null,currentView="list",DAY=[],PENDING=[],ADMIN_NAME="",walkCart=new Set
+</div> <script>const TKA_LOGO="";let db,auth,viewYear,viewMonth,SETTINGS=null,COURTS=[],dayUnsub=null,pendingUnsub=null,selectedDate=null,currentView="list",DAY=[],PENDING=[],ADMIN_NAME="",walkCart=new Set
 ;try{const t=firebase.initializeApp(firebaseConfig,"layawAdmin");try{
 APPCHECK_SITE_KEY&&0!==APPCHECK_SITE_KEY.indexOf("PASTE_")&&firebase.appCheck(t).activate(APPCHECK_SITE_KEY,!0)
 }catch(t){console.warn("AppCheck:",t)}
@@ -389,7 +407,7 @@ const t=await db.collection("settings").doc("config").get();if(t.exists){SETTING
 e.setProperty("--navy-d",SETTINGS.colorPrimaryDark||darken(SETTINGS.colorPrimary,.68))),
 e.setProperty("--green","#0D2863"),e.setProperty("--green-d","#0A1E4C")
 ;const n=SETTINGS.businessName||"Booking System";$("loginBiz").textContent=n,$("topBiz").textContent=n,
-document.title=n+" — Admin",(function(){var _lu=SETTINGS.logoUrl||CLIENT_LOGO;[$("loginLogo"),$("topLogo")].forEach(function(t){if(!t)return;t.src=_lu;t.style.display="block"})})()}const e=await db.collection("courts").get();COURTS=[],e.forEach(t=>{const e=t.data()
+document.title=n+" — Admin",(function(){var _lu=SETTINGS.logoUrl||TKA_LOGO;[$("loginLogo"),$("topLogo")].forEach(function(t){if(!t)return;t.src=_lu;t.style.display="block"})})()}const e=await db.collection("courts").get();COURTS=[],e.forEach(t=>{const e=t.data()
 ;!1!==e.active&&COURTS.push({id:t.id,name:e.name||"Court",type:e.type||"",status:e.status||"",blocks:Array.isArray(e.blocks)?e.blocks:[]})}),COURTS.sort((t,e)=>t.name.localeCompare(e.name))}catch(t){
 console.warn(t)}}function adminSlug(t){return String(t||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"")}
 function adminEmail(t){const e=adminSlug(t);return e?e+"@courtadmin.app":""}async function startDashboard(){
@@ -483,11 +501,68 @@ const n=document.createElement("div");n.className="dow",n.textContent=e,t.append
 ;for(let n=0;n<e;n++)t.appendChild(document.createElement("div"));for(let e=1;e<=n;e++){
 const n=dstr(new Date(viewYear,viewMonth,e)),a=document.createElement("div");a.className="cal-day",a.textContent=e,
 n===selectedDate&&a.classList.add("active"),a.onclick=()=>{selectedDate=n,renderCalendar(),watchDay()},t.appendChild(a)}
-}function watchCourts(){if(window.__courtsUnsub)window.__courtsUnsub();
+}/* ── Block multiple courts ─────────────────────────────────────────── */
+function openMultiCourt(){renderMcCourts();renderMcSlots();
+$("mcStart").value="";$("mcEnd").value="";syncMcButtons();
+$("multiCourtOverlay").classList.add("show")}
+function closeMultiCourt(){$("multiCourtOverlay").classList.remove("show")}
+function mcSelectedCourts(){return[...$("mcCourtList").querySelectorAll(".mc-court.on")].map(el=>COURTS.find(c=>c.id===el.dataset.id)).filter(Boolean)}
+function renderMcCourts(){const wrap=$("mcCourtList");wrap.innerHTML="";
+COURTS.forEach(c=>{const el=document.createElement("label");el.className="mc-court";el.dataset.id=c.id;
+const cb=document.createElement("input");cb.type="checkbox";
+const box=document.createElement("div");
+box.innerHTML='<div class="nm">'+esc(c.name)+'</div>'+(c.type?'<div class="ty">'+esc(c.type)+'</div>':"");
+cb.onchange=()=>{el.classList.toggle("on",cb.checked);syncMcButtons()};
+el.appendChild(cb);el.appendChild(box);wrap.appendChild(el)})}
+function mcSelectAllCourts(on){$("mcCourtList").querySelectorAll(".mc-court").forEach(el=>{
+const cb=el.querySelector("input");cb.checked=on;el.classList.toggle("on",on)});syncMcButtons()}
+function renderMcSlots(){const wrap=$("mcSlots");wrap.innerHTML="";
+buildSlots().forEach(sl=>{const el=document.createElement("div");el.className="cav-slot";
+el.textContent=hourLabel(sl.mins);el.dataset.k=sl.key;
+el.onclick=()=>{el.classList.toggle("on");syncMcButtons()};wrap.appendChild(el)})}
+function mcSelectAllSlots(on){$("mcSlots").querySelectorAll(".cav-slot").forEach(el=>el.classList.toggle("on",on));syncMcButtons()}
+function syncMcButtons(){const nCourts=mcSelectedCourts().length;
+const nSlots=$("mcSlots").querySelectorAll(".cav-slot.on").length;
+const hasDates=$("mcStart").value&&$("mcEnd").value;
+$("mcCount").textContent=nCourts?nCourts+" court"+(1===nCourts?"":"s")+" selected.":"No courts selected.";
+$("mcMarkNA").disabled=!nCourts;$("mcMarkAvail").disabled=!nCourts;
+const ok=nCourts&&nSlots&&hasDates;$("mcBlock").disabled=!ok;$("mcUnblock").disabled=!ok}
+function mcDates(){const s=$("mcStart").value,e=$("mcEnd").value;if(!s||!e)return[];
+const out=[],d=new Date(s+"T00:00:00"),end=new Date(e+"T00:00:00");if(end<d)return[];
+let guard=0;while(d<=end&&guard<400){out.push(d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()));d.setDate(d.getDate()+1);guard++}return out}
+async function mcSaveCourt(court,patch){try{await db.collection("courts").doc(court.id).update(patch);
+const idx=COURTS.findIndex(c=>c.id===court.id);if(idx>=0)Object.assign(COURTS[idx],patch);return!0}
+catch(e){console.error(e);return!1}}
+async function mcSetOverall(makeUnavail){const courts=mcSelectedCourts();if(!courts.length)return;
+let ok=0;for(const c of courts){if(await mcSaveCourt(c,{status:makeUnavail?"unavailable":""}))ok++}
+renderCourtStatus();try{renderSchedHead();renderGrid()}catch(e){}
+toast(ok+" court"+(1===ok?"":"s")+(makeUnavail?" marked not available.":" marked available."))}
+async function mcApplyBlocks(unblock){const courts=mcSelectedCourts(),dates=mcDates();
+if(!courts.length||!dates.length)return toast("Check your courts and dates.");
+const picked=[...$("mcSlots").querySelectorAll(".cav-slot.on")].map(el=>el.dataset.k);
+if(!picked.length)return;
+let ok=0;
+for(const c of courts){
+const cur=Array.isArray(c.blocks)?c.blocks.slice():[];
+let next;
+if(unblock){const ds=new Set(dates),ps=new Set(picked);
+next=cur.map(b=>ds.has(b.date)?{date:b.date,slots:(b.slots||[]).filter(sl=>!ps.has(sl))}:b).filter(b=>(b.slots||[]).length>0)}
+else{next=cur;dates.forEach(d=>{const ex=next.find(b=>b.date===d);
+if(ex)ex.slots=[...new Set([...(ex.slots||[]),...picked])].sort();
+else next.push({date:d,slots:picked.slice().sort()})})}
+if(await mcSaveCourt(c,{blocks:next}))ok++}
+renderCourtStatus();try{renderSchedHead();renderGrid()}catch(e){}
+toast((unblock?"Unblocked ":"Blocked ")+ok+" court"+(1===ok?"":"s")+" across "+dates.length+" day"+(1===dates.length?"":"s")+".")}
+
+
+function watchCourts(){if(window.__courtsUnsub)window.__courtsUnsub();
 window.__courtsUnsub=db.collection("courts").onSnapshot(function(snap){
 var arr=[];snap.forEach(function(d){var t=d.data();if(!1!==t.active)arr.push({id:d.id,name:t.name||"Court",type:t.type||"",status:t.status||"",blocks:Array.isArray(t.blocks)?t.blocks:[]})});
 arr.sort(function(a,b){return a.name.localeCompare(b.name)});COURTS=arr;
 try{renderCourtStatus()}catch(e){}
+/* Blocks affect the schedule grid too — re-render it so blocked slots
+   stop showing as Open while the page is open. */
+try{renderSchedHead();renderGrid()}catch(e){}
 if(CAV_COURT){var fresh=COURTS.find(function(c){return c.id===CAV_COURT.id});if(fresh){CAV_COURT=fresh;try{renderCavStatus();renderCavBlocks();if($("cavDate").value)renderCavSlots()}catch(e){}}}
 },function(e){console.warn("courts watch:",e)})}
 function watchDay(){dayUnsub&&dayUnsub(),$("dayTitle").textContent=niceDate(selectedDate),
@@ -520,19 +595,24 @@ const t=Number(SETTINGS.openHour??8),e=Number(SETTINGS.closeHour??22),n=Number(S
 ;for(let o=60*t;o+n<=60*e;o+=n)a.push({key:pad2(Math.floor(o/60))+":"+pad2(o%60),mins:o});return a}
 function renderSchedHead(){const t=$("schedHead");t.innerHTML="";const e=document.createElement("th")
 ;e.textContent="Time",t.appendChild(e),COURTS.forEach(e=>{const n=document.createElement("th");n.textContent=e.name,
-t.appendChild(n)})}function renderGrid(){if(!SETTINGS||!COURTS.length)return void($("schedBody").innerHTML="")
+t.appendChild(n)})}function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+function renderGrid(){if(!SETTINGS||!COURTS.length)return void($("schedBody").innerHTML="")
 ;const t=buildSlots(),e=Number(SETTINGS.slotMinutes??60),n={};DAY.forEach(t=>{
 "cancelled"!==t.status&&(t.slots||[]).forEach(e=>n[t.court+"|"+e]=t)});const a={},o={};COURTS.forEach(e=>{a[e.name]={},
 o[e.name]=new Set;let s=0;for(;s<t.length;){const i=n[e.name+"|"+t[s].key];if(!i){s++;continue}let c=s+1
 ;for(;c<t.length;){const a=n[e.name+"|"+t[c].key];if(!a||a.id!==i.id)break;c++}a[e.name][s]={booking:i,len:c-s}
 ;for(let t=s+1;t<c;t++)o[e.name].add(t);s=c}});const s=$("schedBody");s.innerHTML="",t.forEach((t,n)=>{
 const i=document.createElement("tr"),c=document.createElement("td");c.className="time-cell",
-c.textContent=hourLabel(t.mins)+"-"+hourLabel(t.mins+e),i.appendChild(c),COURTS.forEach(t=>{if(o[t.name].has(n))return
+c.textContent=hourLabel(t.mins)+"-"+hourLabel(t.mins+e),i.appendChild(c);const SLOTKEY=t.key;COURTS.forEach(t=>{if(o[t.name].has(n))return
 ;const e=a[t.name][n];if(e){const t=e.booking,n=t.status||"pending",a=document.createElement("td")
 ;a.className="cell book-cell "+n,
 a.rowSpan=e.len,a.innerHTML='<div class="nm">'+nameOf(t)+'</div><div class="stt">'+n.toUpperCase()+"</div>",
-a.onclick=()=>openDetail(t),i.appendChild(a)}else{const t=document.createElement("td");t.className="cell"
-;const e=document.createElement("div");e.className="scell-open",e.textContent="Open",t.appendChild(e),i.appendChild(t)}
+a.onclick=()=>openDetail(t),i.appendChild(a)}else{const e=document.createElement("td");e.className="cell"
+;const c=document.createElement("div");
+if("unavailable"===String(t.status||"").toLowerCase()){c.className="scell-na",c.textContent="Not Available"}
+else if(isCourtBlocked(t,selectedDate,SLOTKEY)){c.className="scell-blocked",c.textContent="Blocked"}
+else{c.className="scell-open",c.textContent="Open"}
+e.appendChild(c),i.appendChild(e)}
 }),s.appendChild(i)})}function openDetail(t){
 const e=t.bookingId?DAY.filter(e=>e.bookingId===t.bookingId&&"cancelled"!==e.status):[t],n=e.length?e:[t],a=groupStatus(n),o=[...new Set(n.map(t=>t.court))].sort().join(", "),s=n.reduce((t,e)=>t+Number(e.amount||0),0),i=n[0],c=i.bookingId||i.id,r=i.bookingId||i.id,l=n.map(t=>(t.slots||[]).slice().sort().join(",")),d=l.every(t=>t===l[0])?'<div class="mrow"><span>Time:</span> '+slotsRange(i.slots)+"</div>":n.slice().sort((t,e)=>String(t.court).localeCompare(String(e.court))).map(t=>'<div class="mrow"><span>'+t.court+":</span> "+slotsRange(t.slots)+"</div>").join("")
 ;let u=""
@@ -610,6 +690,19 @@ $("signoutBtn").onclick=()=>auth.signOut(),$("prevMonth").onclick=()=>{viewMonth
 viewYear--),renderCalendar()},$("nextMonth").onclick=()=>{viewMonth++,viewMonth>11&&(viewMonth=0,viewYear++),
 renderCalendar()},
 $("courtModalClose").onclick=()=>closeCourtModal(),
+$("multiCourtBtn").onclick=()=>openMultiCourt(),
+$("multiCourtClose").onclick=()=>closeMultiCourt(),
+$("multiCourtOverlay").onclick=e=>{e.target===$("multiCourtOverlay")&&closeMultiCourt()},
+$("mcSelectAllCourts").onclick=()=>mcSelectAllCourts(!0),
+$("mcClearCourts").onclick=()=>mcSelectAllCourts(!1),
+$("mcSelectAllSlots").onclick=()=>mcSelectAllSlots(!0),
+$("mcClearSlots").onclick=()=>mcSelectAllSlots(!1),
+$("mcMarkNA").onclick=()=>mcSetOverall(!0),
+$("mcMarkAvail").onclick=()=>mcSetOverall(!1),
+$("mcBlock").onclick=()=>mcApplyBlocks(!1),
+$("mcUnblock").onclick=()=>mcApplyBlocks(!0),
+$("mcStart").onchange=()=>syncMcButtons(),
+$("mcEnd").onchange=()=>syncMcButtons(),
 $("courtOverlay").onclick=e=>{e.target===$("courtOverlay")&&closeCourtModal()},
 $("cavToggleBtn").onclick=()=>cavToggleOverall(),
 $("cavAddBlock").onclick=()=>cavAddBlock(),
