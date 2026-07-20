@@ -1,7 +1,7 @@
 <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Owner</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
 authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
 storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
-appId:"1:940525720373:web:002a4cf854c184d00105f4"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--chart:#2747E8;--chart-d:#1B34B0;--chart-l:#7AA0F5;--pos:#2747E8;--btn-bd:#24407F;--sidebar:#0A1524;--sidebar-2:#0E1B2E;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--open-bg:#15321F;--open-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--purple-bg:#241C42;--purple:#A99BF5;--amber-bg:#3E3212;--amber:#E0B93E;--teal-bg:#123536;--teal:#4FC3B4;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
+appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--chart:#2747E8;--chart-d:#1B34B0;--chart-l:#7AA0F5;--pos:#2747E8;--btn-bd:#24407F;--sidebar:#0A1524;--sidebar-2:#0E1B2E;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--open-bg:#15321F;--open-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--purple-bg:#241C42;--purple:#A99BF5;--amber-bg:#3E3212;--amber:#E0B93E;--teal-bg:#123536;--teal:#4FC3B4;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -158,6 +158,7 @@ to{opacity:1;transform:none}
 .act-confirm{background:var(--green);color:#fff}
 .act-confirm:hover{background:var(--green-d)}
 .act-cancel{background:var(--elev);color:var(--cancel);border:1px solid #6e2a31}
+.act-delete{background:#5c1a20;color:#ffd7db;border:1px solid #7a2530}
 .act-cancel:hover{background:#3e1a20}
 .table-scroll{overflow-x:auto}
 table.sched{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0}
@@ -174,6 +175,12 @@ table.sched td.book-cell .stt{font-size:10px;letter-spacing:.08em;font-weight:80
 table.sched td.book-cell.confirmed .stt{color:var(--conf-tx)}
 table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .scell-open{background:var(--open-bg);color:var(--open-tx);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
+.slot-menu{position:fixed;z-index:9000;display:none;min-width:190px;background:var(--elev);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.slot-menu.show{display:block}
+.slot-menu-head{padding:8px 10px 6px;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.02em;border-bottom:1px solid var(--line);margin-bottom:4px}
+.slot-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);font:inherit;font-size:13.5px;font-weight:600;padding:10px 10px;border-radius:8px;cursor:pointer}
+.slot-menu-item:hover{background:rgba(255,255,255,.06)}
+.slot-menu-cancel{color:var(--muted);font-weight:500}
 .scell-blocked{background:#3a2416;color:#E0954A;border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
 .scell-na{background:var(--past-bg,#1b2430);color:var(--past-tx,#7C8DA6);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
 .search{width:100%;max-width:340px}
@@ -831,6 +838,7 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <button class="btn-ghost" id="courtModalClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
 </div>
 </div>
+<div id="slotMenu" class="slot-menu"><div class="slot-menu-head" id="slotMenuHead"></div><button class="slot-menu-item" id="slotMenuToggle"></button><button class="slot-menu-item" id="slotMenuMulti">Block multiple slots…</button><button class="slot-menu-item slot-menu-cancel" id="slotMenuCancel">Cancel</button></div>
 <div class="overlay" id="multiCourtOverlay">
 <div class="modal" style="max-width:520px;max-height:88vh;overflow-y:auto">
 <h3 style="margin-bottom:4px">Block multiple courts</h3>
@@ -959,7 +967,7 @@ $("appFoot").textContent="© "+(new Date).getFullYear()+" "+(SETTINGS&&SETTINGS.
 $("datePill").textContent=(new Date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"
 })+" ("+(new Date).toLocaleDateString("en-US",{weekday:"short"})+")"}async function startDashboard(){
 SETTINGS||await loadBase();const e=today();viewYear=e.getFullYear(),viewMonth=e.getMonth(),selectedDate=dstr(e),
-renderCalendar(),renderSchedHead(),watchDay(),watchPending(),watchCourts(),openSection("dashboard")}function setActiveNav(e){
+renderCalendar(),renderSchedHead(),watchDay(),watchPending(),watchCourts(),startExpiryRefresh(),openSection("dashboard")}function setActiveNav(e){
 document.querySelectorAll(".nav-item").forEach(e=>e.classList.remove("active")),e&&e.classList.add("active")}
 function closeSidebar(){$("sidebar").classList.remove("open"),$("appBackdrop").classList.remove("show")}
 auth&&auth.onAuthStateChanged(async e=>{if($("boot").style.display="none",e){let t=!1;try{
@@ -1208,6 +1216,43 @@ if(await mcSaveCourt(c,{blocks:next}))ok++}
 renderCourtStatus();try{renderSchedHead();renderGrid()}catch(e){}
 toast((unblock?"Unblocked ":"Blocked ")+ok+" court"+(1===ok?"":"s")+" across "+dates.length+" day"+(1===dates.length?"":"s")+".")}
 
+
+/* ── Slot quick menu (tap a slot in the grid) ──────────────────────── */
+let SLOTMENU_CTX=null;
+function openSlotMenu(ev,court,slotKey,isBlocked){ev.stopPropagation();
+SLOTMENU_CTX={court:court,slotKey:slotKey,blocked:isBlocked};
+const menu=$("slotMenu");
+$("slotMenuHead").textContent=court.name+" · "+hourLabel(hm2minKey(slotKey));
+$("slotMenuToggle").textContent=isBlocked?"Open this slot":"Block this slot";
+menu.classList.add("show");
+/* Position next to the tapped cell, kept inside the viewport. */
+const r=ev.currentTarget.getBoundingClientRect(),mw=menu.offsetWidth||200,mh=menu.offsetHeight||160;
+let left=r.left+r.width/2-mw/2,top=r.bottom+6;
+if(left<8)left=8;if(left+mw>window.innerWidth-8)left=window.innerWidth-mw-8;
+if(top+mh>window.innerHeight-8)top=r.top-mh-6;if(top<8)top=8;
+menu.style.left=left+"px";menu.style.top=top+"px"}
+function closeSlotMenu(){$("slotMenu").classList.remove("show");SLOTMENU_CTX=null}
+function hm2minKey(k){const p=String(k||"").split(":");return 60*(Number(p[0])||0)+(Number(p[1])||0)}
+async function slotMenuToggle(){if(!SLOTMENU_CTX)return;const{court,slotKey,blocked}=SLOTMENU_CTX;
+closeSlotMenu();
+const cur=Array.isArray(court.blocks)?court.blocks.map(b=>({date:b.date,slots:(b.slots||[]).slice()})):[];
+let next;
+if(blocked){next=cur.map(b=>b.date===selectedDate?{date:b.date,slots:b.slots.filter(s=>s!==slotKey)}:b).filter(b=>b.slots.length>0)}
+else{next=cur;const ex=next.find(b=>b.date===selectedDate);
+if(ex){if(!ex.slots.includes(slotKey))ex.slots.push(slotKey);ex.slots.sort()}
+else next.push({date:selectedDate,slots:[slotKey]})}
+try{await db.collection("courts").doc(court.id).update({blocks:next});
+const idx=COURTS.findIndex(c=>c.id===court.id);if(idx>=0)COURTS[idx].blocks=next;
+renderCourtStatus();renderSchedHead();renderGrid();
+toast(blocked?"Slot opened.":"Slot blocked.")}
+catch(e){console.error(e),toast("Could not update. Please try again.")}}
+function slotMenuMulti(){if(!SLOTMENU_CTX)return;const court=SLOTMENU_CTX.court;closeSlotMenu();
+openCourtModal(court);
+/* Carry the date across so they only have to pick the times. */
+$("cavDate").value=selectedDate;renderCavSlots();
+$("cavBulkStart").value=selectedDate;$("cavBulkEnd").value=selectedDate;renderBulkSlots();
+try{syncAddBtn();syncBulkBtns()}catch(e){}}
+
 function watchCourts(){if(window.__courtsUnsub)window.__courtsUnsub();
 window.__courtsUnsub=db.collection("courts").onSnapshot(function(snap){
 var arr=[];snap.forEach(function(d){var t=d.data();if(!1!==t.active)arr.push({id:d.id,name:t.name||"Court",type:t.type||"",status:t.status||(t.maintenance?"maintenance":""),blocks:Array.isArray(t.blocks)?t.blocks:[]})});
@@ -1221,7 +1266,7 @@ if(CAV_COURT){var fresh=COURTS.find(function(c){return c.id===CAV_COURT.id});if(
 function watchDay(){dayUnsub&&dayUnsub(),$("dayTitle").textContent=niceDate(selectedDate),
 dayUnsub=db.collection("bookings").where("date","==",selectedDate).onSnapshot(async e=>{DAY=[],e.forEach(e=>DAY.push({
 id:e.id,...e.data()})),DAY.sort((e,t)=>{const n=e.createdAt&&e.createdAt.seconds||0
-;return(t.createdAt&&t.createdAt.seconds||0)-n});const t=orderGroups(DAY.filter(e=>"cancelled"!==e.status));let n=0,a=0
+;return(t.createdAt&&t.createdAt.seconds||0)-n});const t=orderGroups(DAY.filter(e=>isLiveBooking(e)));let n=0,a=0
 ;t.forEach(e=>{const t=groupStatus(e);"pending"===t?n++:"confirmed"===t&&a++});let o=0;DAY.forEach(e=>{
 "confirmed"===e.status&&(o+=Number(e.amount||0))}),$("stPending").textContent=n,$("stConfirmed").textContent=a,
 $("stRevenue").textContent=peso(o),await ensureContacts(DAY),renderView()},e=>{console.error(e),
@@ -1234,21 +1279,42 @@ n.textContent=t>99?"99+":t):n.style.display="none",$("kPending")&&($("kPending")
 await ensureContacts(PENDING),renderNotif()},e=>console.error(e))}function setView(e){currentView=e,
 $("tabList").classList.toggle("on","list"===e),$("tabGrid").classList.toggle("on","grid"===e),
 $("listView").style.display="list"===e?"block":"none",$("gridView").style.display="grid"===e?"block":"none",renderView()
-}function renderView(){"list"===currentView?renderList():renderGrid()}function renderList(){const e=$("listView")
-;e.innerHTML="";const t=orderGroups(DAY.filter(e=>"cancelled"!==e.status));t.length?(t.forEach(t=>{
+}function renderView(){"list"===currentView?renderList():renderGrid()}
+/* Expired reservations should free their slot on their own. Firestore doesn't
+   push an update when a holdUntil simply passes, so re-render on a timer to drop
+   them from the grid, list, and the day's counts. */
+function recountStats(){if(!Array.isArray(DAY))return;const groups=orderGroups(DAY.filter(e=>isLiveBooking(e)));
+let n=0,a=0;groups.forEach(g=>{const st=groupStatus(g);"pending"===st?n++:"confirmed"===st&&a++});
+let o=0;DAY.forEach(e=>{"confirmed"===e.status&&(o+=Number(e.amount||0))});
+$("stPending")&&($("stPending").textContent=n);$("stConfirmed")&&($("stConfirmed").textContent=a);
+$("stRevenue")&&($("stRevenue").textContent=peso(o))}
+function startExpiryRefresh(){if(window.__expiryTimer)clearInterval(window.__expiryTimer);
+window.__expiryTimer=setInterval(function(){try{recountStats();renderView()}catch(e){}},3e4)}
+function renderList(){const e=$("listView")
+;e.innerHTML="";const t=orderGroups(DAY.filter(e=>isLiveBooking(e)));t.length?(t.forEach(t=>{
 const n=groupStatus(t),a=[...new Set(t.map(e=>e.court))].sort(),o=t.reduce((e,t)=>e+Number(t.amount||0),0),s=t[0],r=groupKey(t),i=t.map(e=>(e.slots||[]).slice().sort().join(","))
 ;let c=i.every(e=>e===i[0])?'<div class="times">'+slotsRange(s.slots)+"</div>":t.slice().sort((e,t)=>String(e.court).localeCompare(String(t.court))).map(e=>'<div class="times"><strong>'+esc(e.court)+":</strong> "+slotsRange(e.slots)+"</div>").join(""),d=""
 ;"pending"===n?d='<button class="act act-confirm" data-key="'+r+'" data-act="confirm">Confirm</button><button class="act act-cancel" data-key="'+r+'" data-act="cancel">Cancel</button>':"confirmed"===n&&(d='<button class="act act-cancel" data-key="'+r+'" data-act="cancel">Cancel booking</button>')
-;const l=document.createElement("div");l.className="booking";const u=emailOf(s)
+;const l=document.createElement("div");l.className="booking";l.style.cursor="pointer";l.dataset.key=r;const u=emailOf(s)
 ;l.innerHTML='<div class="row1"><span class="court">'+esc(a.join(", "))+'</span><span class="badge '+n+'">'+n+'</span><span class="amt">'+peso(o)+"</span></div>"+c+'<div class="who"><strong>'+esc(nameOf(s))+"</strong> · "+esc(contactOf(s))+(u?" · "+esc(u):"")+"</div>"+(d?'<div class="actions">'+d+"</div>":""),
 e.appendChild(l)
-}),e.querySelectorAll(".act").forEach(e=>e.onclick=()=>doAction(e.getAttribute("data-key"),e.getAttribute("data-act")))):e.innerHTML='<div class="empty">No bookings for this date.</div>'
+}),e.querySelectorAll(".act").forEach(e=>e.onclick=()=>doAction(e.getAttribute("data-key"),e.getAttribute("data-act"))),
+e.querySelectorAll(".booking").forEach(card=>card.onclick=ev=>{if(ev.target.closest(".act"))return;
+const grp=DAY.filter(b=>(b.bookingId||b.id)===card.dataset.key);if(grp.length)openDetail(grp[0])})):e.innerHTML='<div class="empty">No bookings for this date.</div>'
 }function renderSchedHead(){const e=$("schedHead");e.innerHTML="";const t=document.createElement("th")
 ;t.textContent="Time",e.appendChild(t),COURTS.forEach(t=>{const n=document.createElement("th");n.textContent=t.name,
-e.appendChild(n)})}function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+e.appendChild(n)})}/* A booking counts as "live" (holds its slot) unless it's cancelled, or it's a
+   still-reserved checkout whose 5-minute hold has already expired. Expired
+   reservations are abandoned carts — they should free the slot, same as the
+   customer booking page treats them. */
+function bkHoldMs(e){return e&&e.holdUntil&&e.holdUntil.toMillis?e.holdUntil.toMillis():0}
+function isLiveBooking(e){if(!e||"cancelled"===e.status)return!1;
+if("reserved"===e.status){const hu=bkHoldMs(e);return!(!hu||hu<Date.now())}return!0}
+function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+function bkRank(e){return"confirmed"===e.status?3:"pending"===e.status?2:"reserved"===e.status?1:0}
 function renderGrid(){if(!SETTINGS||!COURTS.length)return void($("schedBody").innerHTML="")
 ;const e=buildSlots(),t=Number(SETTINGS.slotMinutes??60),n={};DAY.forEach(e=>{
-"cancelled"!==e.status&&(e.slots||[]).forEach(t=>n[e.court+"|"+t]=e)});const a={},o={};COURTS.forEach(t=>{a[t.name]={},
+isLiveBooking(e)&&(e.slots||[]).forEach(t=>{const k=e.court+"|"+t;if(!n[k]||bkRank(e)>bkRank(n[k]))n[k]=e})});const a={},o={};COURTS.forEach(t=>{a[t.name]={},
 o[t.name]=new Set;let s=0;for(;s<e.length;){const r=n[t.name+"|"+e[s].key];if(!r){s++;continue}let i=s+1
 ;for(;i<e.length;){const a=n[t.name+"|"+e[i].key];if(!a||a.id!==r.id)break;i++}a[t.name][s]={booking:r,len:i-s}
 ;for(let e=s+1;e<i;e++)o[t.name].add(e);s=i}});const s=$("schedBody");s.innerHTML="",e.forEach((e,n)=>{
@@ -1260,13 +1326,16 @@ a.rowSpan=t.len,a.innerHTML='<div class="nm">'+esc(nameOf(e))+'</div><div class=
 a.onclick=()=>openDetail(e),r.appendChild(a)}else{const t=document.createElement("td");t.className="cell"
 ;const o=document.createElement("div");
 if("unavailable"===String(e.status||"").toLowerCase()){o.className="scell-na",o.textContent="Not Available"}
-else if(isCourtBlocked(e,selectedDate,SLOTKEY)){o.className="scell-blocked",o.textContent="Blocked"}
-else{o.className="scell-open",o.textContent="Open"}
+else if(isCourtBlocked(e,selectedDate,SLOTKEY)){o.className="scell-blocked",o.textContent="Blocked",
+o.style.cursor="pointer",o.onclick=ev=>openSlotMenu(ev,e,SLOTKEY,!0)}
+else{o.className="scell-open",o.textContent="Open",
+o.style.cursor="pointer",o.onclick=ev=>openSlotMenu(ev,e,SLOTKEY,!1)}
 t.appendChild(o),r.appendChild(t)}
 }),s.appendChild(r)})}function openDetail(e){
 const t=e.bookingId?DAY.filter(t=>t.bookingId===e.bookingId&&"cancelled"!==t.status):[e],n=t.length?t:[e],a=groupStatus(n),o=[...new Set(n.map(e=>e.court))].sort().join(", "),s=n.reduce((e,t)=>e+Number(t.amount||0),0),r=n[0],i=r.bookingId||r.id,c=r.bookingId||r.id,d=n.map(e=>(e.slots||[]).slice().sort().join(",")),l=d.every(e=>e===d[0])?'<div class="mrow"><span>Time:</span> '+slotsRange(r.slots)+"</div>":n.slice().sort((e,t)=>String(e.court).localeCompare(String(t.court))).map(e=>'<div class="mrow"><span>'+esc(e.court)+":</span> "+slotsRange(e.slots)+"</div>").join("")
 ;let u=""
 ;"pending"===a?u='<button class="act act-confirm" data-key="'+i+'" data-act="confirm">Confirm</button><button class="act act-cancel" data-key="'+i+'" data-act="cancel">Cancel</button>':"confirmed"===a&&(u='<button class="act act-cancel" data-key="'+i+'" data-act="cancel">Cancel booking</button>')
+;u+='<button class="act act-delete" data-key="'+i+'" data-act="delete">Delete</button>'
 ;const m=r.bookingId&&CONTACTS[r.bookingId]&&CONTACTS[r.bookingId].note?CONTACTS[r.bookingId].note:"",p=r.handledBy||r.bookingId&&CONTACTS[r.bookingId]&&CONTACTS[r.bookingId].handledBy||""
 ;$("detailModal").innerHTML="<h3>"+esc(o)+' · <span class="badge '+a+'">'+a+'</span></h3><div class="mrow"><span>Date:</span> '+niceDate(r.date)+"</div>"+l+'<div class="mrow"><span>Booker:</span> <strong>'+esc(nameOf(r))+'</strong></div><div class="mrow"><span>Contact:</span> '+esc(contactOf(r))+"</div>"+(emailOf(r)?'<div class="mrow"><span>Email:</span> '+esc(emailOf(r))+"</div>":"")+(r.paymentMethod?'<div class="mrow"><span>Payment:</span> '+esc(r.paymentMethod)+"</div>":"")+(p?'<div class="mrow"><span>Handled by:</span> '+esc(p)+"</div>":"")+'<div class="mrow"><span>Total:</span> <strong>'+peso(s)+'</strong></div><div class="note-box"><label class="note-label">Note</label><textarea id="noteInput" class="note-input" placeholder="Add a private note about this booking…">'+esc(m)+'</textarea><button class="mini-btn" id="saveNoteBtn" data-id="'+esc(r.bookingId||"")+'">Save note</button><span class="note-msg" id="noteMsg"></span></div><div class="modal-actions"><button class="btn-ghost" id="detailClose">Close</button><button class="btn-ghost" id="viewReceiptBtn">View receipt</button></div>'+(u?'<div class="modal-actions">'+u+"</div>":""),
 $("detailOverlay").classList.add("show"),$("detailClose").onclick=()=>$("detailOverlay").classList.remove("show"),
@@ -1291,10 +1360,15 @@ e.appendChild(r)
 }),e.querySelectorAll("button").forEach(e=>e.onclick=()=>doAction(e.getAttribute("data-key"),e.getAttribute("data-act")))
 }function closeNotif(){$("notif").classList.remove("show"),$("backdrop").classList.remove("show")}
 async function doAction(e,t){if("cancel"===t&&!confirm("Cancel this booking? The slots will reopen."))return
+;if("delete"===t&&!confirm("Are you sure you want to delete this booking? This permanently removes it and reopens the slots. This cannot be undone."))return
 ;const n=DAY.concat(PENDING);let a=[...new Set(n.filter(t=>(t.bookingId||t.id)===e||t.bookingId===e).map(e=>e.id))]
-;a.length||(a=[e]);try{const e=db.batch();a.forEach(n=>e.update(db.collection("bookings").doc(n),{
+;a.length||(a=[e]);try{const n=db.batch();
+if("delete"===t){a.forEach(id=>n.delete(db.collection("bookings").doc(id)));await n.commit();
+try{$("detailOverlay").classList.remove("show")}catch(e){}
+toast("Booking deleted."),analyticsLoaded=!1}
+else{a.forEach(id=>n.update(db.collection("bookings").doc(id),{
 status:"confirm"===t?"confirmed":"cancelled"
-})),await e.commit(),toast("confirm"===t?"Booking confirmed.":"Booking cancelled."),analyticsLoaded=!1}catch(e){
+})),await n.commit(),toast("confirm"===t?"Booking confirmed.":"Booking cancelled."),analyticsLoaded=!1}}catch(e){
 console.error(e),toast("Could not update. Please try again.")}}function buildCustomers(){const e={}
 ;return orderGroups(ALLB).forEach(t=>{const n=groupStatus(t);if("cancelled"===n)return
 ;const a=t[0],o=a.bookingId&&CONTACTS[a.bookingId]||{},s=(o.bookerName||"").trim(),r=(o.contact||"").trim(),i=(o.email||"").trim(),c=r||i||s||"__"+a.bookingId
@@ -1377,6 +1451,12 @@ e.target===$("receiptOverlay")&&$("receiptOverlay").classList.remove("show")},$(
 $("notif").classList.add("show"),$("backdrop").classList.add("show")},$("notifClose").onclick=closeNotif,
 $("backdrop").onclick=closeNotif,$("supClose").onclick=()=>$("supportOverlay").classList.remove("show"),
 $("courtModalClose").onclick=()=>closeCourtModal(),
+$("slotMenuToggle").onclick=()=>slotMenuToggle(),
+$("slotMenuMulti").onclick=()=>slotMenuMulti(),
+$("slotMenuCancel").onclick=()=>closeSlotMenu(),
+document.addEventListener("click",e=>{const m=$("slotMenu");
+if(m&&m.classList.contains("show")&&!m.contains(e.target))closeSlotMenu()}),
+window.addEventListener("resize",()=>closeSlotMenu()),
 $("multiCourtBtn").onclick=()=>openMultiCourt(),
 $("multiCourtClose").onclick=()=>closeMultiCourt(),
 $("multiCourtOverlay").onclick=e=>{e.target===$("multiCourtOverlay")&&closeMultiCourt()},
