@@ -1,7 +1,7 @@
 <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Admin</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
 authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
 storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
-appId:"1:940525720373:web:002a4cf854c184d00105f4"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--pos:#2747E8;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--open-bg:#15321F;--open-tx:#48A768;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
+appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--pos:#2747E8;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--input-bg:#0E1626;--input-line:#2E3B52;--open-bg:#15321F;--open-tx:#48A768;--pend-bg:#3E3212;--pend-tx:#E0B93E;--conf-bg:#15321F;--conf-tx:#48A768;--ok-bg:#15321F;--ok-tx:#48A768;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea,.note-input{color:var(--text)}input::placeholder,textarea::placeholder,.note-input::placeholder{color:var(--muted)}input[type=color]{color:var(--text)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%;overflow-x:hidden}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -90,6 +90,7 @@ input:focus{outline:2px solid var(--green);border-color:var(--green)}
 .act-confirm{background:var(--green);color:#fff}
 .act-confirm:hover{background:var(--green-d)}
 .act-cancel{background:var(--elev);color:var(--cancel);border:1px solid #6e2a31}
+.act-delete{background:#5c1a20;color:#ffd7db;border:1px solid #7a2530}
 .act-cancel:hover{background:#3e1a20}
 .table-scroll{overflow-x:auto}
 table.sched{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0}
@@ -106,6 +107,12 @@ table.sched td.book-cell .stt{font-size:10px;letter-spacing:.08em;font-weight:80
 table.sched td.book-cell.confirmed .stt{color:var(--conf-tx)}
 table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .scell-open{background:var(--open-bg);color:var(--open-tx);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
+.slot-menu{position:fixed;z-index:9000;display:none;min-width:190px;background:var(--elev);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.slot-menu.show{display:block}
+.slot-menu-head{padding:8px 10px 6px;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.02em;border-bottom:1px solid var(--line);margin-bottom:4px}
+.slot-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);font:inherit;font-size:13.5px;font-weight:600;padding:10px 10px;border-radius:8px;cursor:pointer}
+.slot-menu-item:hover{background:rgba(255,255,255,.06)}
+.slot-menu-cancel{color:var(--muted);font-weight:500}
 .scell-blocked{background:#3a2416;color:#E0954A;border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
 .scell-na{background:var(--past-bg,#1b2430);color:var(--past-tx,#7C8DA6);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap}
@@ -283,6 +290,7 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <button class="btn-ghost" id="courtModalClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
 </div>
 </div>
+<div id="slotMenu" class="slot-menu"><div class="slot-menu-head" id="slotMenuHead"></div><button class="slot-menu-item" id="slotMenuToggle"></button><button class="slot-menu-item" id="slotMenuMulti">Block multiple slots…</button><button class="slot-menu-item slot-menu-cancel" id="slotMenuCancel">Cancel</button></div>
 <div class="overlay" id="multiCourtOverlay">
 <div class="modal" style="max-width:520px;max-height:88vh;overflow-y:auto">
 <h3 style="margin-bottom:4px">Block multiple courts</h3>
@@ -412,7 +420,7 @@ document.title=n+" — Admin",(function(){var _lu=SETTINGS.logoUrl||TKA_LOGO;[$(
 console.warn(t)}}function adminSlug(t){return String(t||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"")}
 function adminEmail(t){const e=adminSlug(t);return e?e+"@courtadmin.app":""}async function startDashboard(){
 await loadBase();const t=today();viewYear=t.getFullYear(),viewMonth=t.getMonth(),selectedDate=dstr(t),
-renderCalendar(),renderSchedHead(),watchDay(),watchPending(),renderCourtStatus(),watchCourts()}function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+renderCalendar(),renderSchedHead(),watchDay(),watchPending(),renderCourtStatus(),watchCourts(),startExpiryRefresh()}function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 var IC_COURT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>';
 function renderCourtStatus(){var e=$("courtStatus");if(!e)return;if(!COURTS.length){e.innerHTML='<div class="empty" style="color:var(--muted);font-size:13px">No courts set up yet.</div>';return}
 e.innerHTML="";COURTS.forEach(function(o){var un="unavailable"===String(o.status||"").toLowerCase();
@@ -555,6 +563,43 @@ renderCourtStatus();try{renderSchedHead();renderGrid()}catch(e){}
 toast((unblock?"Unblocked ":"Blocked ")+ok+" court"+(1===ok?"":"s")+" across "+dates.length+" day"+(1===dates.length?"":"s")+".")}
 
 
+/* ── Slot quick menu (tap a slot in the grid) ──────────────────────── */
+let SLOTMENU_CTX=null;
+function openSlotMenu(ev,court,slotKey,isBlocked){ev.stopPropagation();
+SLOTMENU_CTX={court:court,slotKey:slotKey,blocked:isBlocked};
+const menu=$("slotMenu");
+$("slotMenuHead").textContent=court.name+" · "+hourLabel(hm2minKey(slotKey));
+$("slotMenuToggle").textContent=isBlocked?"Open this slot":"Block this slot";
+menu.classList.add("show");
+/* Position next to the tapped cell, kept inside the viewport. */
+const r=ev.currentTarget.getBoundingClientRect(),mw=menu.offsetWidth||200,mh=menu.offsetHeight||160;
+let left=r.left+r.width/2-mw/2,top=r.bottom+6;
+if(left<8)left=8;if(left+mw>window.innerWidth-8)left=window.innerWidth-mw-8;
+if(top+mh>window.innerHeight-8)top=r.top-mh-6;if(top<8)top=8;
+menu.style.left=left+"px";menu.style.top=top+"px"}
+function closeSlotMenu(){$("slotMenu").classList.remove("show");SLOTMENU_CTX=null}
+function hm2minKey(k){const p=String(k||"").split(":");return 60*(Number(p[0])||0)+(Number(p[1])||0)}
+async function slotMenuToggle(){if(!SLOTMENU_CTX)return;const{court,slotKey,blocked}=SLOTMENU_CTX;
+closeSlotMenu();
+const cur=Array.isArray(court.blocks)?court.blocks.map(b=>({date:b.date,slots:(b.slots||[]).slice()})):[];
+let next;
+if(blocked){next=cur.map(b=>b.date===selectedDate?{date:b.date,slots:b.slots.filter(s=>s!==slotKey)}:b).filter(b=>b.slots.length>0)}
+else{next=cur;const ex=next.find(b=>b.date===selectedDate);
+if(ex){if(!ex.slots.includes(slotKey))ex.slots.push(slotKey);ex.slots.sort()}
+else next.push({date:selectedDate,slots:[slotKey]})}
+try{await db.collection("courts").doc(court.id).update({blocks:next});
+const idx=COURTS.findIndex(c=>c.id===court.id);if(idx>=0)COURTS[idx].blocks=next;
+renderCourtStatus();renderSchedHead();renderGrid();
+toast(blocked?"Slot opened.":"Slot blocked.")}
+catch(e){console.error(e),toast("Could not update. Please try again.")}}
+function slotMenuMulti(){if(!SLOTMENU_CTX)return;const court=SLOTMENU_CTX.court;closeSlotMenu();
+openCourtModal(court);
+/* Carry the date across so they only have to pick the times. */
+$("cavDate").value=selectedDate;renderCavSlots();
+$("cavBulkStart").value=selectedDate;$("cavBulkEnd").value=selectedDate;renderBulkSlots();
+try{syncAddBtn();syncBulkBtns()}catch(e){}}
+
+
 function watchCourts(){if(window.__courtsUnsub)window.__courtsUnsub();
 window.__courtsUnsub=db.collection("courts").onSnapshot(function(snap){
 var arr=[];snap.forEach(function(d){var t=d.data();if(!1!==t.active)arr.push({id:d.id,name:t.name||"Court",type:t.type||"",status:t.status||"",blocks:Array.isArray(t.blocks)?t.blocks:[]})});
@@ -568,7 +613,7 @@ if(CAV_COURT){var fresh=COURTS.find(function(c){return c.id===CAV_COURT.id});if(
 function watchDay(){dayUnsub&&dayUnsub(),$("dayTitle").textContent=niceDate(selectedDate),
 dayUnsub=db.collection("bookings").where("date","==",selectedDate).onSnapshot(async t=>{DAY=[],t.forEach(t=>DAY.push({
 id:t.id,...t.data()})),DAY.sort((t,e)=>{const n=t.createdAt&&t.createdAt.seconds||0
-;return(e.createdAt&&e.createdAt.seconds||0)-n});const e=orderGroups(DAY.filter(t=>"cancelled"!==t.status));let n=0,a=0
+;return(e.createdAt&&e.createdAt.seconds||0)-n});const e=orderGroups(DAY.filter(t=>isLiveBooking(t)));let n=0,a=0
 ;e.forEach(t=>{const e=groupStatus(t);"pending"===e?n++:"confirmed"===e&&a++});let o=0;DAY.forEach(t=>{
 "confirmed"===t.status&&(o+=Number(t.amount||0))}),$("stPending").textContent=n,$("stConfirmed").textContent=a,
 $("stRevenue").textContent=peso(o),await ensureContacts(DAY),renderView()},t=>{console.error(t),
@@ -581,24 +626,38 @@ n.textContent=e>99?"99+":e):n.style.display="none",await ensureContacts(PENDING)
 function setView(t){currentView=t,$("tabList").classList.toggle("on","list"===t),
 $("tabGrid").classList.toggle("on","grid"===t),$("listView").style.display="list"===t?"block":"none",
 $("gridView").style.display="grid"===t?"block":"none",renderView()}function renderView(){
-"list"===currentView?renderList():renderGrid()}function renderList(){const t=$("listView");t.innerHTML=""
-;const e=orderGroups(DAY.filter(t=>"cancelled"!==t.status));e.length?(e.forEach(e=>{
+"list"===currentView?renderList():renderGrid()}
+function recountStats(){if(!Array.isArray(DAY))return;const g=orderGroups(DAY.filter(t=>isLiveBooking(t)));
+let n=0,a=0;g.forEach(t=>{const e=groupStatus(t);"pending"===e?n++:"confirmed"===e&&a++});
+let o=0;DAY.forEach(t=>{"confirmed"===t.status&&(o+=Number(t.amount||0))});
+$("stPending")&&($("stPending").textContent=n);$("stConfirmed")&&($("stConfirmed").textContent=a);
+$("stRevenue")&&($("stRevenue").textContent=peso(o))}
+function startExpiryRefresh(){if(window.__expiryTimer)clearInterval(window.__expiryTimer);
+window.__expiryTimer=setInterval(function(){try{recountStats();renderView()}catch(e){}},3e4)}
+function renderList(){const t=$("listView");t.innerHTML=""
+;const e=orderGroups(DAY.filter(t=>isLiveBooking(t)));e.length?(e.forEach(e=>{
 const n=groupStatus(e),a=[...new Set(e.map(t=>t.court))].sort(),o=e.reduce((t,e)=>t+Number(e.amount||0),0),s=e[0],i=groupKey(e),c=e.map(t=>(t.slots||[]).slice().sort().join(","))
 ;let r=c.every(t=>t===c[0])?'<div class="times">'+slotsRange(s.slots)+"</div>":e.slice().sort((t,e)=>String(t.court).localeCompare(String(e.court))).map(t=>'<div class="times"><strong>'+t.court+":</strong> "+slotsRange(t.slots)+"</div>").join(""),l=""
 ;"pending"===n?l='<button class="act act-confirm" data-key="'+i+'" data-act="confirm">Confirm</button><button class="act act-cancel" data-key="'+i+'" data-act="cancel">Cancel</button>':"confirmed"===n&&(l='<button class="act act-cancel" data-key="'+i+'" data-act="cancel">Cancel booking</button>')
-;const d=document.createElement("div");d.className="booking";const u=emailOf(s)
+;const d=document.createElement("div");d.className="booking";d.style.cursor="pointer";d.dataset.key=i;const u=emailOf(s)
 ;d.innerHTML='<div class="row1"><span class="court">'+a.join(", ")+'</span><span class="badge '+n+'">'+n+'</span><span class="amt">'+peso(o)+"</span></div>"+r+'<div class="who"><strong>'+nameOf(s)+"</strong> · "+contactOf(s)+(u?" · "+u:"")+"</div>"+(l?'<div class="actions">'+l+"</div>":""),
 t.appendChild(d)
-}),t.querySelectorAll(".act").forEach(t=>t.onclick=()=>doAction(t.getAttribute("data-key"),t.getAttribute("data-act")))):t.innerHTML='<div class="empty">No bookings for this date.</div>'
+}),t.querySelectorAll(".act").forEach(t=>t.onclick=()=>doAction(t.getAttribute("data-key"),t.getAttribute("data-act"))),
+t.querySelectorAll(".booking").forEach(card=>card.onclick=ev=>{if(ev.target.closest(".act"))return;
+const grp=DAY.filter(b=>(b.bookingId||b.id)===card.dataset.key);if(grp.length)openDetail(grp[0])})):t.innerHTML='<div class="empty">No bookings for this date.</div>'
 }function buildSlots(){
 const t=Number(SETTINGS.openHour??8),e=Number(SETTINGS.closeHour??22),n=Number(SETTINGS.slotMinutes??60),a=[]
 ;for(let o=60*t;o+n<=60*e;o+=n)a.push({key:pad2(Math.floor(o/60))+":"+pad2(o%60),mins:o});return a}
 function renderSchedHead(){const t=$("schedHead");t.innerHTML="";const e=document.createElement("th")
 ;e.textContent="Time",t.appendChild(e),COURTS.forEach(e=>{const n=document.createElement("th");n.textContent=e.name,
-t.appendChild(n)})}function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+t.appendChild(n)})}function bkHoldMs(e){return e&&e.holdUntil&&e.holdUntil.toMillis?e.holdUntil.toMillis():0}
+function isLiveBooking(e){if(!e||"cancelled"===e.status)return!1;
+if("reserved"===e.status){const hu=bkHoldMs(e);return!(!hu||hu<Date.now())}return!0}
+function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+function bkRank(e){return"confirmed"===e.status?3:"pending"===e.status?2:"reserved"===e.status?1:0}
 function renderGrid(){if(!SETTINGS||!COURTS.length)return void($("schedBody").innerHTML="")
 ;const t=buildSlots(),e=Number(SETTINGS.slotMinutes??60),n={};DAY.forEach(t=>{
-"cancelled"!==t.status&&(t.slots||[]).forEach(e=>n[t.court+"|"+e]=t)});const a={},o={};COURTS.forEach(e=>{a[e.name]={},
+isLiveBooking(t)&&(t.slots||[]).forEach(e=>{const k=t.court+"|"+e;if(!n[k]||bkRank(t)>bkRank(n[k]))n[k]=t})});const a={},o={};COURTS.forEach(e=>{a[e.name]={},
 o[e.name]=new Set;let s=0;for(;s<t.length;){const i=n[e.name+"|"+t[s].key];if(!i){s++;continue}let c=s+1
 ;for(;c<t.length;){const a=n[e.name+"|"+t[c].key];if(!a||a.id!==i.id)break;c++}a[e.name][s]={booking:i,len:c-s}
 ;for(let t=s+1;t<c;t++)o[e.name].add(t);s=c}});const s=$("schedBody");s.innerHTML="",t.forEach((t,n)=>{
@@ -610,13 +669,16 @@ a.rowSpan=e.len,a.innerHTML='<div class="nm">'+nameOf(t)+'</div><div class="stt"
 a.onclick=()=>openDetail(t),i.appendChild(a)}else{const e=document.createElement("td");e.className="cell"
 ;const c=document.createElement("div");
 if("unavailable"===String(t.status||"").toLowerCase()){c.className="scell-na",c.textContent="Not Available"}
-else if(isCourtBlocked(t,selectedDate,SLOTKEY)){c.className="scell-blocked",c.textContent="Blocked"}
-else{c.className="scell-open",c.textContent="Open"}
+else if(isCourtBlocked(t,selectedDate,SLOTKEY)){c.className="scell-blocked",c.textContent="Blocked",
+c.style.cursor="pointer",c.onclick=ev=>openSlotMenu(ev,t,SLOTKEY,!0)}
+else{c.className="scell-open",c.textContent="Open",
+c.style.cursor="pointer",c.onclick=ev=>openSlotMenu(ev,t,SLOTKEY,!1)}
 e.appendChild(c),i.appendChild(e)}
 }),s.appendChild(i)})}function openDetail(t){
 const e=t.bookingId?DAY.filter(e=>e.bookingId===t.bookingId&&"cancelled"!==e.status):[t],n=e.length?e:[t],a=groupStatus(n),o=[...new Set(n.map(t=>t.court))].sort().join(", "),s=n.reduce((t,e)=>t+Number(e.amount||0),0),i=n[0],c=i.bookingId||i.id,r=i.bookingId||i.id,l=n.map(t=>(t.slots||[]).slice().sort().join(",")),d=l.every(t=>t===l[0])?'<div class="mrow"><span>Time:</span> '+slotsRange(i.slots)+"</div>":n.slice().sort((t,e)=>String(t.court).localeCompare(String(e.court))).map(t=>'<div class="mrow"><span>'+t.court+":</span> "+slotsRange(t.slots)+"</div>").join("")
 ;let u=""
 ;"pending"===a?u='<button class="act act-confirm" data-key="'+c+'" data-act="confirm">Confirm</button><button class="act act-cancel" data-key="'+c+'" data-act="cancel">Cancel</button>':"confirmed"===a&&(u='<button class="act act-cancel" data-key="'+c+'" data-act="cancel">Cancel booking</button>')
+;u+='<button class="act act-delete" data-key="'+c+'" data-act="delete">Delete</button>'
 ;const m=i.bookingId&&CONTACTS[i.bookingId]&&CONTACTS[i.bookingId].note?CONTACTS[i.bookingId].note:"",h=i.handledBy||i.bookingId&&CONTACTS[i.bookingId]&&CONTACTS[i.bookingId].handledBy||""
 ;$("detailModal").innerHTML="<h3>"+o+' · <span class="badge '+a+'">'+a+'</span></h3><div class="mrow"><span>Date:</span> '+niceDate(i.date)+"</div>"+d+'<div class="mrow"><span>Booker:</span> <strong>'+nameOf(i)+'</strong></div><div class="mrow"><span>Contact:</span> '+contactOf(i)+"</div>"+(emailOf(i)?'<div class="mrow"><span>Email:</span> '+emailOf(i)+"</div>":"")+(i.paymentMethod?'<div class="mrow"><span>Payment:</span> '+i.paymentMethod+"</div>":"")+(h?'<div class="mrow"><span>Handled by:</span> '+h+"</div>":"")+'<div class="mrow"><span>Total:</span> <strong>'+peso(s)+'</strong></div><div class="note-box"><label class="note-label">Note</label><textarea id="noteInput" class="note-input" placeholder="Add a private note about this booking…">'+m+'</textarea><button class="mini-btn" id="saveNoteBtn" data-id="'+(i.bookingId||"")+'">Save note</button><span class="note-msg" id="noteMsg"></span></div><div class="modal-actions"><button class="btn-ghost" id="detailClose">Close</button><button class="btn-ghost" id="viewReceiptBtn">View receipt</button></div>'+(u?'<div class="modal-actions">'+u+"</div>":""),
 $("detailOverlay").classList.add("show"),$("detailClose").onclick=()=>$("detailOverlay").classList.remove("show"),
@@ -641,10 +703,15 @@ t.appendChild(i)
 }),t.querySelectorAll("button").forEach(t=>t.onclick=()=>doAction(t.getAttribute("data-key"),t.getAttribute("data-act")))
 }function closeNotif(){$("notif").classList.remove("show"),$("backdrop").classList.remove("show")}
 async function doAction(t,e){if("cancel"===e&&!confirm("Cancel this booking? The slots will reopen."))return
+;if("delete"===e&&!confirm("Are you sure you want to delete this booking? This permanently removes it and reopens the slots. This cannot be undone."))return
 ;const n=DAY.concat(PENDING);let a=[...new Set(n.filter(e=>(e.bookingId||e.id)===t||e.bookingId===t).map(t=>t.id))]
-;a.length||(a=[t]);try{const t=db.batch();a.forEach(n=>t.update(db.collection("bookings").doc(n),{
+;a.length||(a=[t]);try{const o=db.batch();
+if("delete"===e){a.forEach(id=>o.delete(db.collection("bookings").doc(id)));await o.commit();
+try{$("detailOverlay").classList.remove("show")}catch(t){}
+toast("Booking deleted.")}
+else{a.forEach(n=>o.update(db.collection("bookings").doc(n),{
 status:"confirm"===e?"confirmed":"cancelled"
-})),await t.commit(),toast("confirm"===e?"Booking confirmed.":"Booking cancelled.")}catch(t){console.error(t),
+})),await o.commit(),toast("confirm"===e?"Booking confirmed.":"Booking cancelled.")}}catch(t){console.error(t),
 toast("Could not update. Please try again.")}}function walkSlotCost(){
 return Number(SETTINGS.ratePerHour??0)*(Number(SETTINGS.slotMinutes??60)/60)}function openWalkIn(){
 SETTINGS&&COURTS.length?(walkCart.clear(),$("walkDate").textContent=niceDate(selectedDate),$("walkName").value="",
@@ -690,6 +757,12 @@ $("signoutBtn").onclick=()=>auth.signOut(),$("prevMonth").onclick=()=>{viewMonth
 viewYear--),renderCalendar()},$("nextMonth").onclick=()=>{viewMonth++,viewMonth>11&&(viewMonth=0,viewYear++),
 renderCalendar()},
 $("courtModalClose").onclick=()=>closeCourtModal(),
+$("slotMenuToggle").onclick=()=>slotMenuToggle(),
+$("slotMenuMulti").onclick=()=>slotMenuMulti(),
+$("slotMenuCancel").onclick=()=>closeSlotMenu(),
+document.addEventListener("click",e=>{const m=$("slotMenu");
+if(m&&m.classList.contains("show")&&!m.contains(e.target))closeSlotMenu()}),
+window.addEventListener("resize",()=>closeSlotMenu()),
 $("multiCourtBtn").onclick=()=>openMultiCourt(),
 $("multiCourtClose").onclick=()=>closeMultiCourt(),
 $("multiCourtOverlay").onclick=e=>{e.target===$("multiCourtOverlay")&&closeMultiCourt()},
