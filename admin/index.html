@@ -107,6 +107,29 @@ table.sched td.book-cell .stt{font-size:10px;letter-spacing:.08em;font-weight:80
 table.sched td.book-cell.confirmed .stt{color:var(--conf-tx)}
 table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .scell-open{background:var(--open-bg);color:var(--open-tx);border-radius:9px;padding:12px 4px;text-align:center;font-size:13px;font-weight:700}
+.op-modes{display:flex;gap:6px;background:var(--elev);border:1px solid var(--line);border-radius:10px;padding:4px}
+.op-mode{flex:1;background:none;border:none;color:var(--muted);font:inherit;font-size:13px;font-weight:700;padding:9px 8px;border-radius:7px;cursor:pointer}
+.op-mode.on{background:var(--navy);color:#fff}
+.op-days{display:flex;gap:6px;flex-wrap:wrap}
+.op-day{width:38px;height:38px;border:1px solid var(--line);border-radius:9px;background:var(--elev);color:var(--muted);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.op-day.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.op-card{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--elev);cursor:pointer}
+.op-card:hover{background:rgba(255,255,255,.03)}
+.op-card.lv-green{border-left-color:#48A768}
+.op-card.lv-yellow{border-left-color:#D4A32C}
+.op-card.lv-orange{border-left-color:#E0954A}
+.op-card.lv-red{border-left-color:#C2515E}
+.op-card.past{opacity:.55}
+.op-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.op-name{font-size:15px;font-weight:800;color:var(--text)}
+.op-count{margin-left:auto;font-size:12.5px;font-weight:800;padding:5px 11px;border-radius:999px;white-space:nowrap}
+.op-count.lv-green{background:rgba(72,167,104,.16);color:#48A768}
+.op-count.lv-yellow{background:rgba(212,163,44,.16);color:#D4A32C}
+.op-count.lv-orange{background:rgba(224,149,74,.16);color:#E0954A}
+.op-count.lv-red{background:rgba(194,81,94,.16);color:#C2515E}
+.op-meta{font-size:13px;color:var(--muted);line-height:1.6}
+.op-daygroup{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 8px}
+.op-daygroup:first-child{margin-top:0}
 .slot-menu{position:fixed;z-index:9000;display:none;min-width:190px;background:var(--elev);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
 .slot-menu.show{display:block}
 .slot-menu-head{padding:8px 10px 6px;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.02em;border-bottom:1px solid var(--line);margin-bottom:4px}
@@ -247,6 +270,13 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <div class="view-head" style="display:flex;align-items:center;gap:12px"><h3>Court Status</h3><button id="multiCourtBtn" class="btn" style="width:auto;flex:none;margin-left:auto;padding:9px 15px;font-size:12.5px;white-space:nowrap">Block multiple courts</button></div>
 <div id="courtStatus" class="court-status-grid"></div>
 </div>
+<div class="card cs-card" style="margin-top:16px">
+<div class="view-head" style="display:flex;align-items:center;gap:12px"><h3>Open Play</h3><button id="opNewBtn" class="btn" style="width:auto;flex:none;margin-left:auto;padding:8px 14px;font-size:12.5px;white-space:nowrap">+ New session</button></div>
+<div id="opList">
+<div class="empty">Loading…</div>
+</div>
+</div>
+
 </div>
  </div> <div class="overlay" id="courtOverlay">
 <div class="modal" style="max-width:480px;max-height:88vh;overflow-y:auto">
@@ -288,6 +318,62 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <div id="cavBlockList" class="cav-blocklist"><div class="cav-empty">No blocks set.</div></div>
 </div>
 <button class="btn-ghost" id="courtModalClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
+</div>
+</div>
+<div class="overlay" id="opOverlay">
+<div class="modal" style="max-width:520px;max-height:90vh;overflow-y:auto">
+<h3 id="opModalTitle" style="margin-bottom:16px">New session</h3>
+<div class="cav-section">
+<div class="cav-label">Details</div>
+<label class="cav-mini">Session name</label>
+<input type="text" id="opName" class="fld-input" placeholder="e.g. Beginners Open Play"/>
+<label class="cav-mini" style="margin-top:10px">Description (optional)</label>
+<textarea id="opDesc" class="fld-input" rows="2" placeholder="Skill level, what to bring, house rules…"></textarea>
+</div>
+<div class="cav-section">
+<div class="cav-label">When</div>
+<div class="op-modes" id="opModeTabs">
+<button type="button" class="op-mode on" data-mode="single">One date</button>
+<button type="button" class="op-mode" data-mode="repeat">Repeat weekly</button>
+</div>
+<div id="opSingleWrap" style="margin-top:12px">
+<label class="cav-mini">Date</label>
+<input type="date" id="opDate" class="fld-input"/>
+</div>
+<div id="opRepeatWrap" style="margin-top:12px;display:none">
+<div style="display:flex;gap:10px">
+<div style="flex:1"><label class="cav-mini">From</label><input type="date" id="opFrom" class="fld-input"/></div>
+<div style="flex:1"><label class="cav-mini">To</label><input type="date" id="opTo" class="fld-input"/></div>
+</div>
+<label class="cav-mini" style="margin-top:10px">Repeat on</label>
+<div class="op-days" id="opDays"></div>
+<div class="cav-hint" id="opRepeatHint">Creates one session per matching day. Up to 3 months ahead.</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<div style="flex:1"><label class="cav-mini">Start</label><select id="opStart" class="fld-input"></select></div>
+<div style="flex:1"><label class="cav-mini">End</label><select id="opEnd" class="fld-input"></select></div>
+</div>
+<div class="cav-hint" id="opTimeHint" style="margin-top:6px"></div>
+</div>
+<div class="cav-section">
+<div class="cav-label">Courts</div>
+<div class="cav-slot-actions"><button id="opSelectAllCourts" class="cav-linkbtn" type="button">Select all</button><button id="opClearCourts" class="cav-linkbtn" type="button">Clear all</button></div>
+<div id="opCourtList" class="mc-courts"></div>
+<div class="cav-hint">These courts are closed to normal bookings for the whole session.</div>
+</div>
+<div class="cav-section">
+<div class="cav-label">Slots &amp; fee</div>
+<div style="display:flex;gap:10px">
+<div style="flex:1"><label class="cav-mini">Max players</label><input type="number" id="opMax" class="fld-input" min="1" step="1" placeholder="24"/></div>
+<div style="flex:1"><label class="cav-mini">Fee per player (₱)</label><input type="number" id="opFee" class="fld-input" min="0" step="1" placeholder="250"/></div>
+</div>
+</div>
+<div id="opMsg" class="note-msg" style="display:block;margin-bottom:10px"></div>
+<div style="display:flex;gap:10px">
+<button class="btn-ghost" id="opCancelBtn" style="flex:1;padding:13px">Cancel</button>
+<button class="btn" id="opSaveBtn" style="flex:1;padding:13px">Save session</button>
+</div>
+<button class="btn-ghost" id="opDeleteBtn" style="width:100%;margin-top:10px;padding:12px;color:var(--cancel);display:none">Delete session</button>
 </div>
 </div>
 <div id="slotMenu" class="slot-menu"><div class="slot-menu-head" id="slotMenuHead"></div><button class="slot-menu-item" id="slotMenuToggle"></button><button class="slot-menu-item" id="slotMenuMulti">Block multiple slots…</button><button class="slot-menu-item slot-menu-cancel" id="slotMenuCancel">Cancel</button></div>
@@ -420,7 +506,7 @@ document.title=n+" — Admin",(function(){var _lu=SETTINGS.logoUrl||TKA_LOGO;[$(
 console.warn(t)}}function adminSlug(t){return String(t||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"")}
 function adminEmail(t){const e=adminSlug(t);return e?e+"@courtadmin.app":""}async function startDashboard(){
 await loadBase();const t=today();viewYear=t.getFullYear(),viewMonth=t.getMonth(),selectedDate=dstr(t),
-renderCalendar(),renderSchedHead(),watchDay(),watchPending(),renderCourtStatus(),watchCourts(),startExpiryRefresh()}function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+renderCalendar(),renderSchedHead(),watchDay(),watchPending(),renderCourtStatus(),watchCourts(),watchOpenPlay(),startExpiryRefresh()}function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 var IC_COURT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>';
 function renderCourtStatus(){var e=$("courtStatus");if(!e)return;if(!COURTS.length){e.innerHTML='<div class="empty" style="color:var(--muted);font-size:13px">No courts set up yet.</div>';return}
 e.innerHTML="";COURTS.forEach(function(o){var un="unavailable"===String(o.status||"").toLowerCase();
@@ -600,6 +686,169 @@ $("cavBulkStart").value=selectedDate;$("cavBulkEnd").value=selectedDate;renderBu
 try{syncAddBtn();syncBulkBtns()}catch(e){}}
 
 
+/* ══════════════════════════════════════════════════════════════════
+   OPEN PLAY — sessions
+   Firestore: openPlay/{id}
+     name, desc, date "YYYY-MM-DD", start "HH:MM", end "HH:MM",
+     courts [name], maxSlots, fee, slotsTaken, active, createdAt
+   Players join a session instead of booking a whole court. The courts
+   listed are closed to normal bookings for the session's hours.
+   ══════════════════════════════════════════════════════════════════ */
+let OPENPLAY=[],opUnsub=null,OP_EDITING=null;
+
+function opFillTimeSelects(){const slots=buildSlots(),mins=Number(SETTINGS.slotMinutes??60);
+const start=$("opStart"),end=$("opEnd");if(!start||!end)return;
+start.innerHTML="";end.innerHTML="";
+slots.forEach(sl=>{const o=document.createElement("option");o.value=sl.key;o.textContent=hourLabel(sl.mins);start.appendChild(o)});
+/* End options are the slot ends, so a 6-9PM session ends at 9PM not 8PM. */
+slots.forEach(sl=>{const o=document.createElement("option");o.value=opMin2Key(sl.mins+mins);o.textContent=hourLabel(sl.mins+mins);end.appendChild(o)})}
+function opMin2Key(m){m=((m%1440)+1440)%1440;return pad2(Math.floor(m/60))+":"+pad2(m%60)}
+function opKey2Min(k){const p=String(k||"").split(":");return 60*(Number(p[0])||0)+(Number(p[1])||0)}
+
+function opLevel(taken,max){if(!max)return"green";const pct=taken/max*100;
+return pct>=100?"red":pct>=75?"orange":pct>=50?"yellow":"green"}
+
+function watchOpenPlay(){if(opUnsub)opUnsub();
+opUnsub=db.collection("openPlay").onSnapshot(snap=>{OPENPLAY=[];
+snap.forEach(d=>OPENPLAY.push({id:d.id,...d.data()}));
+OPENPLAY.sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+renderOpenPlay()},e=>{console.error(e);
+$("opList").innerHTML='<div class="empty">Could not load sessions.</div>'})}
+
+function renderOpenPlay(){const wrap=$("opList");if(!wrap)return;
+if(!OPENPLAY.length){wrap.innerHTML='<div class="empty">No sessions yet. Tap “New session” to create one.</div>';return}
+const today=dstr(today());wrap.innerHTML="";
+let lastDate="";
+OPENPLAY.forEach(s=>{
+if(s.date!==lastDate){lastDate=s.date;const h=document.createElement("div");h.className="op-daygroup";
+h.textContent=(s.date===today?"Today · ":"")+niceD(s.date);wrap.appendChild(h)}
+const taken=Number(s.slotsTaken||0),max=Number(s.maxSlots||0),lv=opLevel(taken,max);
+const card=document.createElement("div");card.className="op-card lv-"+lv+(s.date<today?" past":"");
+card.innerHTML='<div class="op-row1"><span class="op-name">'+esc(s.name||"Open Play")+'</span>'
++'<span class="op-count lv-'+lv+'">'+taken+"/"+(max||"—")+"</span></div>"
++'<div class="op-meta">'+hourLabel(opKey2Min(s.start))+" – "+hourLabel(opKey2Min(s.end))
++" · "+peso(Number(s.fee||0))+" per player<br>"+esc((s.courts||[]).join(", ")||"No courts set")+"</div>";
+card.onclick=()=>opEdit(s);wrap.appendChild(card)})}
+
+function opRenderCourts(selected){const wrap=$("opCourtList");wrap.innerHTML="";
+const sel=new Set(selected||[]);
+COURTS.forEach(c=>{const el=document.createElement("label");el.className="mc-court"+(sel.has(c.name)?" on":"");
+el.dataset.name=c.name;
+const cb=document.createElement("input");cb.type="checkbox";cb.checked=sel.has(c.name);
+cb.onchange=()=>el.classList.toggle("on",cb.checked);
+const box=document.createElement("div");
+box.innerHTML='<div class="nm">'+esc(c.name)+'</div>'+(c.type?'<div class="ty">'+esc(c.type)+"</div>":"");
+el.appendChild(cb);el.appendChild(box);wrap.appendChild(el)})}
+function opSelectedCourts(){return[...$("opCourtList").querySelectorAll(".mc-court.on")].map(el=>el.dataset.name)}
+function opSelectAllCourts(on){$("opCourtList").querySelectorAll(".mc-court").forEach(el=>{
+el.querySelector("input").checked=on;el.classList.toggle("on",on)})}
+
+let OP_MODE="single";
+const OP_DAYNAMES=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function opRenderDays(sel){const wrap=$("opDays");wrap.innerHTML="";
+const on=new Set(sel||[]);
+OP_DAYNAMES.forEach((label,idx)=>{const b=document.createElement("button");
+b.type="button";b.className="op-day"+(on.has(idx)?" on":"");b.dataset.d=idx;
+b.textContent=label[0];b.title=label;
+b.onclick=()=>{b.classList.toggle("on");opUpdateRepeatHint()};wrap.appendChild(b)})}
+function opSelectedDays(){return[...$("opDays").querySelectorAll(".op-day.on")].map(b=>Number(b.dataset.d))}
+function opSetMode(mode){OP_MODE=mode;
+$("opModeTabs").querySelectorAll(".op-mode").forEach(b=>b.classList.toggle("on",b.dataset.mode===mode));
+$("opSingleWrap").style.display="repeat"===mode?"none":"block";
+$("opRepeatWrap").style.display="repeat"===mode?"block":"none";
+opUpdateRepeatHint()}
+/* Work out which dates a repeat rule covers, capped at 3 months. */
+function opRepeatDates(){const from=$("opFrom").value,to=$("opTo").value,days=opSelectedDays();
+if(!from||!to||!days.length)return[];
+const start=new Date(from+"T00:00:00"),end=new Date(to+"T00:00:00");
+if(end<start)return[];
+const cap=new Date(start);cap.setMonth(cap.getMonth()+3);
+const last=end>cap?cap:end;
+const out=[],d=new Date(start);let guard=0;
+while(d<=last&&guard<400){if(days.includes(d.getDay()))out.push(dstr(d));d.setDate(d.getDate()+1);guard++}
+return out}
+function opUpdateRepeatHint(){const el=$("opRepeatHint");if(!el)return;
+if("repeat"!==OP_MODE){el.textContent="";return}
+const from=$("opFrom").value,to=$("opTo").value,days=opSelectedDays();
+if(!from||!to||!days.length){el.textContent="Creates one session per matching day. Up to 3 months ahead.";return}
+const dates=opRepeatDates();
+if(!dates.length){el.textContent="No matching days in that range.";return}
+const start=new Date(from+"T00:00:00"),end=new Date(to+"T00:00:00"),cap=new Date(start);
+cap.setMonth(cap.getMonth()+3);
+el.textContent=dates.length+" session"+(1===dates.length?"":"s")+" will be created"
++(end>cap?" (range capped at 3 months).":".")}
+
+function opNew(){OP_EDITING=null;
+$("opModalTitle").textContent="New session";
+opFillTimeSelects();
+const start=selectedDate||dstr(today());
+$("opName").value="";$("opDesc").value="";$("opDate").value=start;
+$("opFrom").value=start;$("opTo").value="";opRenderDays([]);opSetMode("single");
+$("opModeTabs").style.display="flex";
+const slots=buildSlots();if(slots.length){$("opStart").value=slots[0].key;
+$("opEnd").value=opMin2Key(slots[slots.length-1].mins+Number(SETTINGS.slotMinutes??60))}
+opRenderCourts([]);$("opMax").value="";$("opFee").value="";
+$("opMsg").textContent="";$("opDeleteBtn").style.display="none";
+$("opOverlay").classList.add("show")}
+
+function opEdit(s){OP_EDITING=s;
+$("opModalTitle").textContent="Edit session";
+opFillTimeSelects();
+/* Editing always applies to this one date — repeating is only for creating. */
+opSetMode("single");$("opModeTabs").style.display="none";
+$("opName").value=s.name||"";$("opDesc").value=s.desc||"";$("opDate").value=s.date||"";
+$("opStart").value=s.start||"";$("opEnd").value=s.end||"";
+opRenderCourts(s.courts||[]);
+$("opMax").value=s.maxSlots||"";$("opFee").value=s.fee||"";
+$("opMsg").textContent=Number(s.slotsTaken||0)?Number(s.slotsTaken)+" player(s) already joined.":"";
+$("opDeleteBtn").style.display="block";
+$("opOverlay").classList.add("show")}
+
+function opClose(){$("opOverlay").classList.remove("show");OP_EDITING=null}
+
+async function opSave(){const name=$("opName").value.trim(),
+start=$("opStart").value,end=$("opEnd").value,courts=opSelectedCourts(),
+max=Number($("opMax").value||0),fee=Number($("opFee").value||0);
+const msg=$("opMsg");
+if(!name)return void(msg.textContent="Give the session a name.");
+if(opKey2Min(end)<=opKey2Min(start))return void(msg.textContent="End time must be after the start time.");
+if(!courts.length)return void(msg.textContent="Pick at least one court.");
+if(max<1)return void(msg.textContent="Set how many players can join.");
+if(OP_EDITING&&max<Number(OP_EDITING.slotsTaken||0))
+return void(msg.textContent="Max players can't be lower than the "+OP_EDITING.slotsTaken+" already joined.");
+/* Work out which dates to write. */
+let dates=[];
+if(OP_EDITING||"single"===OP_MODE){const d=$("opDate").value;
+if(!d)return void(msg.textContent="Pick a date.");dates=[d]}
+else{if(!$("opFrom").value||!$("opTo").value)return void(msg.textContent="Pick a start and end date.");
+if(!opSelectedDays().length)return void(msg.textContent="Pick at least one day of the week.");
+dates=opRepeatDates();
+if(!dates.length)return void(msg.textContent="No matching days in that range.")}
+const base={name:name,desc:$("opDesc").value.trim(),start:start,end:end,
+courts:courts,maxSlots:max,fee:fee,active:!0};
+const btn=$("opSaveBtn");btn.disabled=!0;msg.textContent="Saving…";
+try{if(OP_EDITING){await db.collection("openPlay").doc(OP_EDITING.id).update({...base,date:dates[0]});
+opClose();toast("Session updated.")}
+else{/* Firestore batches cap at 500 writes, so chunk it. */
+for(let i=0;i<dates.length;i+=400){const batch=db.batch();
+dates.slice(i,i+400).forEach(d=>{const ref=db.collection("openPlay").doc();
+batch.set(ref,{...base,date:d,slotsTaken:0,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()})});
+await batch.commit()}
+opClose();toast(1===dates.length?"Session created.":dates.length+" sessions created.")}}
+catch(e){console.error(e);msg.textContent="Could not save. Please try again."}
+finally{btn.disabled=!1}}
+
+async function opDelete(){if(!OP_EDITING)return;
+const joined=Number(OP_EDITING.slotsTaken||0);
+const warn=joined?"This session has "+joined+" player(s) joined. Deleting it removes the session for everyone. Continue?"
+:"Delete this session? This cannot be undone.";
+if(!confirm(warn))return;
+try{await db.collection("openPlay").doc(OP_EDITING.id).delete();
+opClose();toast("Session deleted.")}
+catch(e){console.error(e);toast("Could not delete. Please try again.")}}
+
+
 function watchCourts(){if(window.__courtsUnsub)window.__courtsUnsub();
 window.__courtsUnsub=db.collection("courts").onSnapshot(function(snap){
 var arr=[];snap.forEach(function(d){var t=d.data();if(!1!==t.active)arr.push({id:d.id,name:t.name||"Court",type:t.type||"",status:t.status||"",blocks:Array.isArray(t.blocks)?t.blocks:[]})});
@@ -757,6 +1006,14 @@ $("signoutBtn").onclick=()=>auth.signOut(),$("prevMonth").onclick=()=>{viewMonth
 viewYear--),renderCalendar()},$("nextMonth").onclick=()=>{viewMonth++,viewMonth>11&&(viewMonth=0,viewYear++),
 renderCalendar()},
 $("courtModalClose").onclick=()=>closeCourtModal(),
+$("opNewBtn").onclick=()=>opNew(),
+$("opCancelBtn").onclick=()=>opClose(),
+$("opSaveBtn").onclick=()=>opSave(),
+$("opDeleteBtn").onclick=()=>opDelete(),
+$("opSelectAllCourts").onclick=()=>opSelectAllCourts(!0),
+$("opClearCourts").onclick=()=>opSelectAllCourts(!1),
+$("opOverlay").onclick=e=>{e.target===$("opOverlay")&&opClose()},
+
 $("slotMenuToggle").onclick=()=>slotMenuToggle(),
 $("slotMenuMulti").onclick=()=>slotMenuMulti(),
 $("slotMenuCancel").onclick=()=>closeSlotMenu(),
