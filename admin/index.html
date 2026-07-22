@@ -717,13 +717,13 @@ $("opList").innerHTML='<div class="empty">Could not load sessions.</div>'})}
 
 function renderOpenPlay(){const wrap=$("opList");if(!wrap)return;
 if(!OPENPLAY.length){wrap.innerHTML='<div class="empty">No sessions yet. Tap “New session” to create one.</div>';return}
-const today=dstr(today());wrap.innerHTML="";
+const todayKey=dstr(today());wrap.innerHTML="";
 let lastDate="";
 OPENPLAY.forEach(s=>{
 if(s.date!==lastDate){lastDate=s.date;const h=document.createElement("div");h.className="op-daygroup";
-h.textContent=(s.date===today?"Today · ":"")+niceD(s.date);wrap.appendChild(h)}
+h.textContent=(s.date===todayKey?"Today · ":"")+niceD(s.date);wrap.appendChild(h)}
 const taken=Number(s.slotsTaken||0),max=Number(s.maxSlots||0),lv=opLevel(taken,max);
-const card=document.createElement("div");card.className="op-card lv-"+lv+(s.date<today?" past":"");
+const card=document.createElement("div");card.className="op-card lv-"+lv+(s.date<todayKey?" past":"");
 card.innerHTML='<div class="op-row1"><span class="op-name">'+esc(s.name||"Open Play")+'</span>'
 +'<span class="op-count lv-'+lv+'">'+taken+"/"+(max||"—")+"</span></div>"
 +'<div class="op-meta">'+hourLabel(opKey2Min(s.start))+" – "+hourLabel(opKey2Min(s.end))
