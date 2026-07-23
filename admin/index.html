@@ -117,6 +117,13 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .op-card-btn{flex:1;width:auto;padding:9px 12px;border:none;border-radius:9px;background:var(--navy);color:#fff;font:inherit;font-weight:700;font-size:12.5px;cursor:pointer;text-align:center}
 .op-card-btn.ghost{background:var(--elev);color:var(--muted);border:1px solid var(--line)}
 .op-card-btn.ghost:hover{color:var(--text)}
+.op-search-wrap{position:relative;margin-bottom:14px}
+.op-search{width:100%;padding:11px 38px 11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--input-bg);color:var(--text);font:inherit;font-size:14px}
+.op-search::placeholder{color:var(--muted)}
+.op-search-x{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;display:none;align-items:center;justify-content:center;border:none;border-radius:7px;background:none;color:var(--muted);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
+.op-search-x.show{display:flex}
+.op-search-x:hover{color:var(--text)}
+.op-hit{background:rgba(212,163,44,.22);border-radius:3px;padding:0 2px}
 .op-pl-sub{font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:14px}
 .op-pl-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .op-pl-stat{flex:1;min-width:96px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--elev)}
@@ -361,6 +368,7 @@ textarea.fld-input{resize:vertical;min-height:60px;font-family:inherit}
 <h3 id="opPlTitle" style="margin-bottom:4px">Players</h3>
 <div class="op-pl-sub" id="opPlSub"></div>
 <div class="op-pl-stats" id="opPlStats"></div>
+<div class="op-search-wrap"><input type="text" id="opPlSearch" class="op-search" placeholder="Search a player or guest…" autocomplete="off"/><button type="button" class="op-search-x" id="opPlSearchX" title="Clear">×</button></div>
 <div id="opPlList">
 <div class="empty">Loading…</div>
 </div>
@@ -791,9 +799,10 @@ actions.appendChild(bView);actions.appendChild(bEdit);card.appendChild(actions);
 card.onclick=()=>opOpenPlayers(s);wrap.appendChild(card)})}
 
 /* ── Open Play: who joined, payment status, and check-in ──────────── */
-let OP_PL_SESSION=null,OP_REGS=[],opRegsUnsub=null;
+let OP_PL_SESSION=null,OP_REGS=[],opRegsUnsub=null,OP_PL_QUERY="";
 
-function opOpenPlayers(sess){OP_PL_SESSION=sess;OP_REGS=[];
+function opOpenPlayers(sess){OP_PL_SESSION=sess;OP_REGS=[];OP_PL_QUERY="";
+if($("opPlSearch")){$("opPlSearch").value="";$("opPlSearchX").classList.remove("show")}
 $("opPlTitle").textContent=sess.name||"Open Play";
 $("opPlSub").textContent=niceD(sess.date)+" · "+hourLabel(opKey2Min(sess.start))+" – "+hourLabel(opKey2Min(sess.end))
 +" · "+((sess.courts||[]).join(", ")||"No courts set");
@@ -838,8 +847,16 @@ $("opPlStats").innerHTML=
 +'<div class="op-pl-stat"><div class="n">'+pending+"</div><div class=\"l\">Pending</div></div>"
 +'<div class="op-pl-stat"><div class="n">'+checked+"/"+totalPlayers+"</div><div class=\"l\">Checked in</div></div>";
 if(!live.length){wrap.innerHTML='<div class="empty">No one has joined yet.</div>';return}
+/* Search matches the booker, any guest, the contact number or the email —
+   whichever the host happens to remember. */
+const q=(OP_PL_QUERY||"").trim().toLowerCase();
+const shown=q?live.filter(r=>{const ct=cinfo(r);
+const hay=[ct.bookerName||r.bookerName||"",ct.contact||"",ct.email||"",
+...(r.guests||[])].join(" ").toLowerCase();
+return hay.includes(q)}):live;
+if(!shown.length){wrap.innerHTML='<div class="empty">No one matches “'+esc(OP_PL_QUERY)+'”.</div>';return}
 wrap.innerHTML="";
-live.forEach(r=>{const card=document.createElement("div");card.className="op-reg";
+shown.forEach(r=>{const card=document.createElement("div");card.className="op-reg";
 const st=r.status||"pending";
 const ct=cinfo(r),bName=ct.bookerName||r.bookerName||"—",
 bContact=ct.contact||r.contact||"—",bEmail=ct.email||r.email||"";
@@ -1190,6 +1207,10 @@ renderCalendar()},
 $("courtModalClose").onclick=()=>closeCourtModal(),
 $("opNewBtn").onclick=()=>opNew(),
 $("opPlClose").onclick=()=>opClosePlayers(),
+$("opPlSearch").oninput=e=>{OP_PL_QUERY=e.target.value;
+$("opPlSearchX").classList.toggle("show",!!OP_PL_QUERY);opRenderRegs()},
+$("opPlSearchX").onclick=()=>{OP_PL_QUERY="";$("opPlSearch").value="";
+$("opPlSearchX").classList.remove("show");opRenderRegs();$("opPlSearch").focus()},
 $("opPlayersOverlay").onclick=e=>{e.target===$("opPlayersOverlay")&&opClosePlayers()},
 $("opModeTabs").querySelectorAll(".op-mode").forEach(b=>b.onclick=()=>opSetMode(b.dataset.mode)),
 $("opFrom").onchange=()=>opUpdateRepeatHint(),
