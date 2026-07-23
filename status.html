@@ -1,32 +1,7 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Booking Status</title> <script>
-/* ══════════════════════════════════════════════════════════════════════
-   LAYAW BOOKING SYSTEM — CLIENT CONFIG
-   ─────────────────────────────────────────────────────────────────────
-   This is the ONLY part of this file you edit for a new client.
-   Everything else (business name, colours, logo, hours, rates, contact)
-   comes from Firestore and is editable in the Owner Dashboard.
-
-   1. Create the client's Firebase project, then paste its web config here.
-      Firebase Console → Project settings → Your apps → Web app → Config
-   2. Register the site in App Check (reCAPTCHA v3) and paste the site key.
-      Firebase Console → App Check → Apps → Register
-   3. Paste the client's logo URL (used only as a fallback before Firestore
-      loads; the real logo is set in Owner Dashboard → Settings).
-
-   Use the SAME values in all pages: index.html, status.html, confirm.html,
-   admin/index.html, owner/index.html
-   ══════════════════════════════════════════════════════════════════════ */
-const firebaseConfig = {
-  apiKey:            "AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
-  authDomain:        "layaw-pickleball.firebaseapp.com",
-  projectId:         "layaw-pickleball",
-  storageBucket:     "layaw-pickleball.firebasestorage.app",
-  messagingSenderId: "940525720373",
-  appId:             "1:940525720373:web:dfbe3e353e1402bf27727c"
-};
-const APPCHECK_SITE_KEY = "6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09";
-const CLIENT_LOGO = "";
-</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--brand-l:#9DBBF5;--link:#7FA7F0;--pend-bg:#3E3212;--pend-tx:#E0B93E;--ok-bg:#15321F;--ok-tx:#48A768;--cancel-bg:#3E1A20;--cancel-tx:#E88A92;--info-bg:#132445;--info-line:#25406E;--info-tx:#AFC3E6;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}input,select,textarea{color:var(--text)}input::placeholder,textarea::placeholder{color:var(--muted)}
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Booking Status</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
+authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
+storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
+appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{color-scheme:light;--navy:#153C4A;--navy-d:#0E2C36;--green:#153C4A;--green-d:#0E2C36;--bg:#F5F7F8;--card:#FFFFFF;--elev:#F0F3F5;--line:#DDE4E8;--text:#12212A;--text-2:#3E525E;--muted:#5D707C;--brand-l:#153C4A;--link:#1E7A8C;--pend-bg:#FEF6E0;--pend-tx:#7D5C12;--ok-bg:#EDF7E6;--ok-tx:#3E7019;--cancel-bg:#FDECEE;--cancel-tx:#B0343F;--info-bg:#EDF7E6;--info-line:#C3E3A5;--info-tx:#3F6E1B;--lime:#8DC63F;--radius:16px;--shadow:0 6px 20px rgba(21,60,74,.10)}input,select,textarea{color:var(--text)}input::placeholder,textarea::placeholder{color:var(--muted)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%;overflow-x:hidden}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -39,7 +14,7 @@ body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI"
 .idcard .l{font-size:13px;color:var(--muted)}
 .idcard .v{font-size:22px;font-weight:800;color:var(--text);letter-spacing:.02em}
 .copy-btn{margin-left:auto;background:var(--elev);border:none;color:var(--text);padding:9px 16px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
-.copy-btn:hover{background:#20304a}
+.copy-btn:hover{background:var(--elev)}
 .status-card{text-align:center}
 .status-icon{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:34px;margin:4px auto 14px}
 .si-pending{background:var(--pend-bg)}
@@ -73,7 +48,7 @@ body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI"
 .contact-box strong{color:var(--text)}
 .contact-box .num{display:block;font-size:20px;font-weight:800;color:var(--text);margin-top:6px}
 .fb-help-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:11px 20px;background:#1877F2;color:#fff;border-radius:9px;font-size:14px;font-weight:700;text-decoration:none}
-.fb-help-btn:hover{background:#0e63d4}
+.fb-help-btn:hover{background:#0C5AB8}
 .btn-ghost{display:block;width:100%;text-align:center;border:1px solid var(--line);background:var(--elev);border-radius:12px;padding:15px;font:inherit;font-weight:700;cursor:pointer;color:var(--text);text-decoration:none;margin-bottom:12px}
 .btn-ghost:hover{border-color:var(--green)}
 .error-box,.loading{text-align:center;padding:60px 16px;color:var(--muted)}
@@ -127,8 +102,9 @@ APPCHECK_SITE_KEY&&0!==APPCHECK_SITE_KEY.indexOf("PASTE_")&&firebase.appCheck(t)
 showError("Could not connect. Check the Firebase config.")}async function init(){if(db)if(BID)try{
 const t=await db.collection("settings").doc("config").get();if(t.exists){SETTINGS=t.data()
 ;const e=document.documentElement.style;SETTINGS.colorPrimary&&(e.setProperty("--navy",SETTINGS.colorPrimary),
-e.setProperty("--navy-d",SETTINGS.colorPrimaryDark||darken(SETTINGS.colorPrimary,.68))),
-e.setProperty("--green","#0D2863"),
+e.setProperty("--navy-d",SETTINGS.colorPrimaryDark||darken(SETTINGS.colorPrimary,.68)),
+e.setProperty("--green",SETTINGS.colorPrimary),
+e.setProperty("--green-d",SETTINGS.colorPrimaryDark||darken(SETTINGS.colorPrimary,.68))),
 document.title=(SETTINGS.businessName||"Booking")+" — Status"}watch()}catch(t){console.error(t),
 showError("Failed to load: "+(t.message||t))}else showError("No booking ID provided.")}function watch(){unsub&&unsub(),
 unsub=db.collection("bookings").where("bookingId","==",BID).onSnapshot(t=>{ORDER=[],t.forEach(t=>ORDER.push(t.data())),
@@ -164,7 +140,7 @@ t<=0&&($("timerHelp").textContent="The hold time has passed and your booking is 
 updateContact(!0),ticker&&(clearInterval(ticker),ticker=null))}function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
 function updateContact(t){
 const e=$("contactBox"),n=t||"pending"===combined&&deadline&&Date.now()>=deadline
-;const FB_LINK=SETTINGS.facebookLink||""
+;const FB_LINK=SETTINGS.facebookLink||"https://www.facebook.com/profile.php?id=61589844632164"
 ;"pending"===combined&&n&&FB_LINK?(e.style.display="block",
 e.innerHTML='<strong>Need help?</strong> Message us to follow up on your booking.<a class="fb-help-btn" href="'+esc(FB_LINK)+'" target="_blank" rel="noopener">Message us on Facebook</a>'):"pending"===combined&&n&&SETTINGS.contactNumber?(e.style.display="block",
 e.innerHTML='<strong>Need help?</strong> Contact us to follow up on your booking.<span class="num">📞 '+SETTINGS.contactNumber+"</span>"):"pending"===combined?(e.style.display="block",
