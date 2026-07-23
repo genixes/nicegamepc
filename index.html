@@ -1,7 +1,7 @@
 <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Book a Court</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
 authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
 storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
-appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--disabled:#64748B;--brand-l:#9DBBF5;--link:#7FA7F0;--open-bg:#15321F;--open-tx:#48A768;--open-bd:#205E37;--sel-bg:#15336B;--sel-tx:#FFFFFF;--sel-bd:#3B5CA0;--book-bg:#3E1A20;--book-tx:#E88A92;--book-bd:#6E2A31;--pend-bg:#3E3212;--pend-tx:#E0B93E;--pend-bd:#8A6A1E;--past-bg:#232C3B;--past-tx:#7E8CA0;--past-bd:#333F52;--input-bg:#0E1626;--input-line:#2E3B52;--input-focus:#3B5CA0;--info-bg:#132445;--info-line:#25406E;--info-tx:#AFC3E6;--btn-dis-bg:#232E42;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}
+appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{color-scheme:light;--navy:#153C4A;--navy-d:#0E2C36;--green:#153C4A;--green-d:#0E2C36;--btn-bd:#1E5265;--bg:#F5F7F8;--card:#FFFFFF;--elev:#F0F3F5;--line:#DDE4E8;--text:#12212A;--text-2:#3E525E;--muted:#5D707C;--disabled:#8A9AA5;--brand-l:#153C4A;--link:#1E7A8C;--open-bg:#EDF7E6;--open-tx:#3E7019;--open-bd:#C3E3A5;--sel-bg:#153C4A;--sel-tx:#FFFFFF;--sel-bd:#153C4A;--book-bg:#FDECEE;--book-tx:#B0343F;--book-bd:#F2C4C9;--pend-bg:#FEF6E0;--pend-tx:#7D5C12;--pend-bd:#F0DCA8;--past-bg:#F0F3F5;--past-tx:#94A4AE;--past-bd:#DDE4E8;--input-bg:#FFFFFF;--input-line:#CFD9DF;--input-focus:#8DC63F;--info-bg:#EDF7E6;--info-line:#C3E3A5;--info-tx:#3F6E1B;--btn-dis-bg:#E4EAEE;--cancel:#C0392B;--lime:#8DC63F;--lime-d:#77A934;--radius:16px;--shadow:0 6px 20px rgba(21,60,74,.10)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%;overflow-x:hidden}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -10,7 +10,7 @@ img{max-width:100%}
 .brand{display:flex;align-items:center;gap:14px}
 .brand img{width:52px;height:52px;border-radius:12px;object-fit:cover}
 .brand .eyebrow{font-size:11px;letter-spacing:.18em;font-weight:700;color:var(--muted);text-transform:uppercase}
-.brand h1{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1}
+.brand h1{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.1}
 .subline{color:var(--muted);font-size:14px;margin:10px 2px 0}
 .hero-wrap{position:relative;width:100%;height:230px;border-radius:var(--radius);overflow:hidden;margin-top:16px;box-shadow:var(--shadow);background:var(--navy-d)}
 .hero-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
@@ -58,7 +58,7 @@ table.slots .time-cell{font-size:13px;font-weight:700;color:var(--text);padding:
 .cell-booked{background:var(--book-bg);color:var(--book-tx);cursor:not-allowed;box-shadow:inset 0 0 0 1px var(--book-bd)}
 .cell-pending{background:var(--pend-bg);color:var(--pend-tx);cursor:not-allowed;box-shadow:inset 0 0 0 1px var(--pend-bd)}
 .cell-past{background:var(--past-bg);color:var(--past-tx);cursor:not-allowed;box-shadow:inset 0 0 0 1px var(--past-bd)}
-.cell-blocked{background:#3a2416;color:#E0954A;cursor:not-allowed;box-shadow:inset 0 0 0 1px #6b4420}
+.cell-blocked{background:#FDF1DC;color:#7D5612;cursor:not-allowed;box-shadow:inset 0 0 0 1px #EBD7AA}
 .summary{position:sticky;top:18px}
 .sum-empty{color:var(--muted);font-size:14px}
 .sum-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-height:340px;overflow-y:auto}
@@ -118,7 +118,7 @@ table.slots .time-cell{font-size:13px;font-weight:700;color:var(--text);padding:
 @media (max-width:1000px){.grid-layout{grid-template-columns:1fr}
 .hero-wrap{height:190px}
 .summary .btn{display:none}
-.mobile-bar{display:flex;position:fixed;left:0;right:0;bottom:0;background:#1f2227;color:#fff;padding:12px 16px;gap:18px;align-items:center;z-index:40;box-shadow:0 -4px 20px rgba(0,0,0,.18)}
+.mobile-bar{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:#fff;padding:12px 16px;gap:18px;align-items:center;z-index:40;box-shadow:0 -4px 20px rgba(0,0,0,.18)}
 .mobile-bar .mb-lab{font-size:10px;letter-spacing:.1em;opacity:.8;font-weight:700}
 .mobile-bar .mb-val{font-size:18px;font-weight:800}
 .mobile-bar .mb-btn{margin-left:auto;width:auto;background:#fff;color:var(--navy);padding:13px 22px;font-size:15px}
@@ -145,7 +145,7 @@ input:focus{outline:2px solid var(--input-focus);border-color:var(--input-focus)
 .pay-acct .nm{font-size:13px;color:var(--muted)}
 .pay-acct .no{font-size:17px;font-weight:800;color:var(--text)}
 .copy-btn{background:var(--elev);border:none;color:var(--text);padding:9px 16px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer}
-.copy-btn:hover{background:#20304a}
+.copy-btn:hover{background:var(--elev)}
 .exact{text-align:center;font-size:13px;color:var(--pend-tx);margin-top:12px}
 .upload{border:2px dashed var(--line);border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer}
 .upload:hover{border-color:var(--brand-l)}
@@ -159,7 +159,7 @@ input:focus{outline:2px solid var(--input-focus);border-color:var(--input-focus)
 .timer-bar .tb-txt{font-size:13px;font-weight:600;opacity:.92}
 .timer-bar .tb-txt strong{display:block;font-size:12px;font-weight:700;opacity:.8;letter-spacing:.02em}
 .timer-bar .tb-count{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;font-size:26px;letter-spacing:.02em;background:rgba(255,255,255,.14);padding:6px 14px;border-radius:10px;min-width:96px;text-align:center}
-.timer-bar.urgent{background:#b5342a;box-shadow:0 8px 24px rgba(181,52,42,.35);animation:tbpulse 1s ease-in-out infinite}
+.timer-bar.urgent{background:#C0392B;box-shadow:0 8px 24px rgba(181,52,42,.35);animation:tbpulse 1s ease-in-out infinite}
 @keyframes tbpulse{0%,100%{transform:scale(1)}
 50%{transform:scale(1.012)}
 }
@@ -202,18 +202,18 @@ table.slots .time-cell{position:sticky;left:0;background:var(--card);z-index:2}
 }
 
 /* ── View toggle (Book a Court / Open Play) ───────────────────────── */
-.view-toggle{position:relative;display:flex;gap:4px;padding:5px;margin-bottom:18px;border-radius:14px;
-background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
-border:1px solid rgba(255,255,255,.10);
-box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 6px 20px rgba(0,0,0,.28);
+.view-toggle{position:relative;display:flex;gap:4px;padding:5px;margin:18px 0;border-radius:14px;
+background:linear-gradient(135deg,rgba(21,60,74,.06),rgba(21,60,74,.02));
+border:1px solid var(--line);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 10px rgba(21,60,74,.06);
 -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%)}
 .vt-btn{position:relative;flex:1;background:none;border:none;color:var(--muted);font:inherit;font-size:14px;font-weight:700;
 padding:12px 10px;border-radius:11px;cursor:pointer;text-align:center;width:auto;letter-spacing:.01em;
 transition:color .22s ease,background .22s ease,box-shadow .22s ease}
 .vt-btn:hover:not(.on){color:var(--text)}
 .vt-btn.on{color:#fff;
-background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(255,255,255,.07));
-box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.16),0 3px 12px rgba(0,0,0,.24)}
+background:linear-gradient(135deg,var(--navy),var(--navy-d));
+box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 3px 12px rgba(21,60,74,.22)}
 /* ── Open Play session cards ──────────────────────────────────────── */
 .op-daygroup{font-size:12.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 10px}
 .op-daygroup:first-child{margin-top:0}
@@ -417,10 +417,10 @@ rate:Number(t.rate)})}),RATES.sort((e,t)=>e.start-t.start);PROMOS=[];if(pp)pp.fo
 viewMonth=o.getMonth(),selectedDate=dstr(o),renderCalendar(),renderGridHead(),watchAvailability(),watchCourtsLive(),watchOpenPlay(),updateSummary(),
 window.__clearLoadHint&&window.__clearLoadHint(),$("loading").style.display="none",$("app").style.display="block"}catch(e){console.error(e),
 showError("timeout"===e.message?"Couldn't connect. If you opened this from Messenger or Facebook, tap ••• and choose “Open in browser”, then try again.":"Failed to load data: "+(e.message||e))}}function applyTheme(){
-const e=document.documentElement.style,t=SETTINGS.colorPrimary||"#0D2863",o=SETTINGS.colorAccent||"#0D2863"
-;e.setProperty("--navy",t),e.setProperty("--navy-d",SETTINGS.colorPrimaryDark||"#0A1E4C"),e.setProperty("--green",o),
-e.setProperty("--green-d",SETTINGS.colorAccentDark||"#0A1E4C"),
-e.setProperty("--sel-bg",SETTINGS.slotSelectedBg||"#15336B")}function renderBrand(){
+const e=document.documentElement.style,t=SETTINGS.colorPrimary||"#153C4A",o=SETTINGS.colorAccent||"#153C4A"
+;e.setProperty("--navy",t),e.setProperty("--navy-d",SETTINGS.colorPrimaryDark||"#0E2C36"),e.setProperty("--green",o),
+e.setProperty("--green-d",SETTINGS.colorAccentDark||"#0E2C36"),
+e.setProperty("--sel-bg",SETTINGS.slotSelectedBg||t)}function renderBrand(){
 if($("bizName").textContent=SETTINGS.businessName||"Court Booking",$("bizTagline").textContent=SETTINGS.tagline||"",
 document.title=(SETTINGS.businessName||"Court")+" — Booking",SETTINGS.logoUrl){const e=$("logo");e.src=SETTINGS.logoUrl,
 e.style.display="block"}}function heroImages(){
