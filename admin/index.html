@@ -210,6 +210,9 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .nitem .nacts{display:flex;gap:8px}
 .nitem .nacts button{flex:1;border:none;padding:8px;border-radius:8px;font:inherit;font-weight:700;font-size:12px;cursor:pointer}
 .overlay{position:fixed;inset:0;background:rgba(14,49,64,.55);display:none;place-items:center;padding:16px;z-index:50}
+/* The receipt opens on top of the players panel, so it needs to sit above it. */
+#receiptOverlay{z-index:70}
+#opPlayersOverlay{z-index:60}
 .fld-input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--input-bg);color:var(--text);font:inherit}
 textarea.fld-input{resize:vertical;min-height:60px;font-family:inherit}
 .cav-section{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
@@ -804,8 +807,10 @@ if(opRegsUnsub){opRegsUnsub();opRegsUnsub=null}OP_PL_SESSION=null;OP_REGS=[]}
 
 function opWatchRegs(sessionId){if(opRegsUnsub)opRegsUnsub();
 opRegsUnsub=db.collection("openPlayRegs").where("sessionId","==",sessionId)
-.onSnapshot(snap=>{OP_REGS=[];snap.forEach(d=>OP_REGS.push({id:d.id,...d.data()}));
+.onSnapshot(async snap=>{OP_REGS=[];snap.forEach(d=>OP_REGS.push({id:d.id,...d.data()}));
 OP_REGS.sort((a,b)=>((a.createdAt&&a.createdAt.seconds)||0)-((b.createdAt&&b.createdAt.seconds)||0));
+/* Name, contact and email live in bookingContacts, not on the registration. */
+await ensureContacts(OP_REGS);
 opRenderRegs()},e=>{console.error("openPlayRegs:",e);
 $("opPlList").innerHTML='<div class="empty">Could not load players.</div>'})}
 
@@ -814,7 +819,8 @@ function opRegLive(r){if(!r||"cancelled"===r.status)return!1;
 if("reserved"===r.status){const hu=r.holdUntil&&r.holdUntil.toMillis?r.holdUntil.toMillis():0;
 return!(!hu||hu<Date.now())}return!0}
 
-function opPlayersOf(r){const out=[{name:r.bookerName||"—",tag:"Booker",key:"booker"}];
+function opPlayersOf(r){const ct=cinfo(r);
+const out=[{name:ct.bookerName||r.bookerName||"—",tag:"Booker",key:"booker"}];
 (r.guests||[]).forEach((g,i)=>out.push({name:g||"Guest",tag:"Guest",key:"g"+i}));
 return out}
 
@@ -835,12 +841,20 @@ if(!live.length){wrap.innerHTML='<div class="empty">No one has joined yet.</div>
 wrap.innerHTML="";
 live.forEach(r=>{const card=document.createElement("div");card.className="op-reg";
 const st=r.status||"pending";
-card.innerHTML='<div class="op-reg-top"><span class="op-reg-name">'+esc(r.bookerName||"—")+"</span>"
+const ct=cinfo(r),bName=ct.bookerName||r.bookerName||"—",
+bContact=ct.contact||r.contact||"—",bEmail=ct.email||r.email||"";
+card.innerHTML='<div class="op-reg-top"><span class="op-reg-name">'+esc(bName)+"</span>"
 +'<span class="op-reg-badge '+st+'">'+st+"</span>"
 +'<span class="op-reg-amt">'+peso(Number(r.amount||0))+"</span></div>"
-+'<div class="op-reg-meta">'+esc(r.contact||"—")+(r.email?" · "+esc(r.email):"")
++'<div class="op-reg-meta">'+esc(bContact)+(bEmail?" · "+esc(bEmail):"")
 +"<br>"+Number(r.slots||1)+" slot"+(1===Number(r.slots||1)?"":"s")
-+(r.paymentMethod?" · "+esc(r.paymentMethod):"")+"</div>";
++(r.paymentMethod?" · "+esc(r.paymentMethod):"")
+/* Older registrations were saved before guests counted toward the seats;
+   flag the mismatch instead of quietly showing the wrong number. */
++(opPlayersOf(r).length!==Number(r.slots||1)
+?'<br><span style="color:#D4A32C">⚠ '+opPlayersOf(r).length+" player"+(1===opPlayersOf(r).length?"":"s")
++" listed but "+Number(r.slots||1)+" slot"+(1===Number(r.slots||1)?"":"s")+" counted</span>":"")
++"</div>";
 /* Player rows with check-in, only once the payment is confirmed. */
 const pl=document.createElement("div");pl.className="op-players";
 const ci=r.checkedIn||{};
