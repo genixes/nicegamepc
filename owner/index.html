@@ -181,6 +181,37 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 .op-days{display:flex;gap:6px;flex-wrap:wrap}
 .op-day{width:38px;height:38px;flex:none;padding:0;border:1px solid var(--line);border-radius:9px;background:var(--elev);color:var(--muted);font:inherit;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center}
 .op-day.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.op-card-actions{display:flex;gap:8px;margin-top:12px}
+.op-card-btn{flex:1;width:auto;padding:9px 12px;border:none;border-radius:9px;background:var(--navy);color:#fff;font:inherit;font-weight:700;font-size:12.5px;cursor:pointer;text-align:center}
+.op-card-btn.ghost{background:var(--elev);color:var(--muted);border:1px solid var(--line)}
+.op-card-btn.ghost:hover{color:var(--text)}
+.op-pl-sub{font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.op-pl-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.op-pl-stat{flex:1;min-width:96px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--elev)}
+.op-pl-stat .n{font-size:19px;font-weight:800;color:var(--text);line-height:1.2}
+.op-pl-stat .l{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+.op-reg{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--elev)}
+.op-reg-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.op-reg-name{font-size:14.5px;font-weight:800;color:var(--text)}
+.op-reg-badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.op-reg-badge.pending{background:rgba(212,163,44,.16);color:#D4A32C}
+.op-reg-badge.confirmed{background:rgba(72,167,104,.16);color:#48A768}
+.op-reg-badge.cancelled{background:var(--card);color:var(--muted)}
+.op-reg-amt{margin-left:auto;font-size:14px;font-weight:800;color:var(--text)}
+.op-reg-meta{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.op-players{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.op-player{display:flex;align-items:center;gap:10px;padding:9px 0}
+.op-player+.op-player{border-top:1px solid var(--line)}
+.op-player-nm{font-size:13.5px;font-weight:600;color:var(--text)}
+.op-player-tag{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.op-checkin{margin-left:auto;flex:none;width:auto;padding:7px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--muted);font:inherit;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap}
+.op-checkin.on{background:rgba(72,167,104,.16);border-color:#48A768;color:#48A768}
+.op-checkin:disabled{opacity:.45;cursor:not-allowed}
+.op-reg-actions{display:flex;gap:8px;margin-top:12px}
+.op-reg-btn{flex:1;width:auto;padding:9px;border:none;border-radius:9px;font:inherit;font-weight:700;font-size:12.5px;cursor:pointer;text-align:center}
+.op-reg-btn.confirm{background:#1c4a2e;color:#8fe0ab}
+.op-reg-btn.cancel{background:var(--card);color:var(--cancel);border:1px solid #6e2a31}
+.op-reg-btn.receipt{background:var(--elev);color:var(--text);border:1px solid var(--line)}
 .op-card{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:var(--elev);cursor:pointer}
 .op-card:hover{background:rgba(255,255,255,.03)}
 .op-card.lv-green{border-left-color:#48A768}
@@ -868,6 +899,17 @@ table.sched td.book-cell.pending .stt{color:var(--pend-tx)}
 <button class="btn-ghost" id="courtModalClose" style="width:100%;margin-top:6px;padding:13px">Done</button>
 </div>
 </div>
+<div class="overlay" id="opPlayersOverlay">
+<div class="modal" style="max-width:600px;max-height:90vh;overflow-y:auto">
+<h3 id="opPlTitle" style="margin-bottom:4px">Players</h3>
+<div class="op-pl-sub" id="opPlSub"></div>
+<div class="op-pl-stats" id="opPlStats"></div>
+<div id="opPlList">
+<div class="empty">Loading…</div>
+</div>
+<button class="btn-ghost" id="opPlClose" style="width:100%;margin-top:16px;padding:13px">Close</button>
+</div>
+</div>
 <div class="overlay" id="opOverlay">
 <div class="modal" style="max-width:520px;max-height:90vh;overflow-y:auto">
 <h3 id="opModalTitle" style="margin-bottom:16px">New session</h3>
@@ -1389,8 +1431,113 @@ card.innerHTML='<div class="op-row1"><span class="op-name">'+esc(s.name||"Open P
 +'<span class="op-count lv-'+lv+'">'+taken+"/"+(max||"—")+"</span></div>"
 +'<div class="op-meta">'+hourLabel(opKey2Min(s.start))+" – "+hourLabel(opKey2Min(s.end))
 +" · "+peso(Number(s.fee||0))+" per player<br>"+esc((s.courts||[]).join(", ")||"No courts set")+"</div>";
-card.onclick=()=>opEdit(s);wrap.appendChild(card)})}
+const actions=document.createElement("div");actions.className="op-card-actions";
+const bView=document.createElement("button");bView.type="button";bView.className="op-card-btn";
+bView.textContent="View players";bView.onclick=ev=>{ev.stopPropagation();opOpenPlayers(s)};
+const bEdit=document.createElement("button");bEdit.type="button";bEdit.className="op-card-btn ghost";
+bEdit.textContent="Edit";bEdit.onclick=ev=>{ev.stopPropagation();opEdit(s)};
+actions.appendChild(bView);actions.appendChild(bEdit);card.appendChild(actions);
+card.onclick=()=>opOpenPlayers(s);wrap.appendChild(card)})}
 
+/* ── Open Play: who joined, payment status, and check-in ──────────── */
+let OP_PL_SESSION=null,OP_REGS=[],opRegsUnsub=null;
+
+function opOpenPlayers(sess){OP_PL_SESSION=sess;OP_REGS=[];
+$("opPlTitle").textContent=sess.name||"Open Play";
+$("opPlSub").textContent=niceD(sess.date)+" · "+hourLabel(opKey2Min(sess.start))+" – "+hourLabel(opKey2Min(sess.end))
++" · "+((sess.courts||[]).join(", ")||"No courts set");
+$("opPlList").innerHTML='<div class="empty">Loading…</div>';
+$("opPlStats").innerHTML="";
+$("opPlayersOverlay").classList.add("show");
+opWatchRegs(sess.id)}
+
+function opClosePlayers(){$("opPlayersOverlay").classList.remove("show");
+if(opRegsUnsub){opRegsUnsub();opRegsUnsub=null}OP_PL_SESSION=null;OP_REGS=[]}
+
+function opWatchRegs(sessionId){if(opRegsUnsub)opRegsUnsub();
+opRegsUnsub=db.collection("openPlayRegs").where("sessionId","==",sessionId)
+.onSnapshot(snap=>{OP_REGS=[];snap.forEach(d=>OP_REGS.push({id:d.id,...d.data()}));
+OP_REGS.sort((a,b)=>((a.createdAt&&a.createdAt.seconds)||0)-((b.createdAt&&b.createdAt.seconds)||0));
+opRenderRegs()},e=>{console.error("openPlayRegs:",e);
+$("opPlList").innerHTML='<div class="empty">Could not load players.</div>'})}
+
+/* A held-but-abandoned checkout shouldn't look like a real signup. */
+function opRegLive(r){if(!r||"cancelled"===r.status)return!1;
+if("reserved"===r.status){const hu=r.holdUntil&&r.holdUntil.toMillis?r.holdUntil.toMillis():0;
+return!(!hu||hu<Date.now())}return!0}
+
+function opPlayersOf(r){const out=[{name:r.bookerName||"—",tag:"Booker",key:"booker"}];
+(r.guests||[]).forEach((g,i)=>out.push({name:g||"Guest",tag:"Guest",key:"g"+i}));
+return out}
+
+function opRenderRegs(){const wrap=$("opPlList");if(!wrap)return;
+const live=OP_REGS.filter(opRegLive);
+/* Totals across the session, so the host can see the room at a glance. */
+let confirmed=0,pending=0,seats=0,checked=0,totalPlayers=0;
+live.forEach(r=>{const n=Number(r.slots||1);seats+=n;
+if("confirmed"===r.status){confirmed+=n;totalPlayers+=n;
+const ci=r.checkedIn||{};opPlayersOf(r).forEach(p=>{if(ci[p.key])checked++})}
+else if("pending"===r.status)pending+=n});
+$("opPlStats").innerHTML=
+'<div class="op-pl-stat"><div class="n">'+seats+"</div><div class=\"l\">Slots taken</div></div>"
++'<div class="op-pl-stat"><div class="n">'+confirmed+"</div><div class=\"l\">Confirmed</div></div>"
++'<div class="op-pl-stat"><div class="n">'+pending+"</div><div class=\"l\">Pending</div></div>"
++'<div class="op-pl-stat"><div class="n">'+checked+"/"+totalPlayers+"</div><div class=\"l\">Checked in</div></div>";
+if(!live.length){wrap.innerHTML='<div class="empty">No one has joined yet.</div>';return}
+wrap.innerHTML="";
+live.forEach(r=>{const card=document.createElement("div");card.className="op-reg";
+const st=r.status||"pending";
+card.innerHTML='<div class="op-reg-top"><span class="op-reg-name">'+esc(r.bookerName||"—")+"</span>"
++'<span class="op-reg-badge '+st+'">'+st+"</span>"
++'<span class="op-reg-amt">'+peso(Number(r.amount||0))+"</span></div>"
++'<div class="op-reg-meta">'+esc(r.contact||"—")+(r.email?" · "+esc(r.email):"")
++"<br>"+Number(r.slots||1)+" slot"+(1===Number(r.slots||1)?"":"s")
++(r.paymentMethod?" · "+esc(r.paymentMethod):"")+"</div>";
+/* Player rows with check-in, only once the payment is confirmed. */
+const pl=document.createElement("div");pl.className="op-players";
+const ci=r.checkedIn||{};
+opPlayersOf(r).forEach(p=>{const row=document.createElement("div");row.className="op-player";
+row.innerHTML='<span class="op-player-nm">'+esc(p.name)+'</span><span class="op-player-tag">'+p.tag+"</span>";
+const btn=document.createElement("button");btn.type="button";
+const on=!!ci[p.key];
+btn.className="op-checkin"+(on?" on":"");
+btn.textContent=on?"✓ In":"Check in";
+btn.disabled="confirmed"!==st;
+btn.title="confirmed"!==st?"Confirm the payment first":"";
+btn.onclick=()=>opToggleCheckIn(r,p.key,!on);
+row.appendChild(btn);pl.appendChild(row)});
+card.appendChild(pl);
+const acts=document.createElement("div");acts.className="op-reg-actions";
+if("pending"===st){const b=document.createElement("button");b.type="button";
+b.className="op-reg-btn confirm";b.textContent="Confirm payment";
+b.onclick=()=>opSetRegStatus(r,"confirmed");acts.appendChild(b)}
+if("cancelled"!==st){const b=document.createElement("button");b.type="button";
+b.className="op-reg-btn cancel";b.textContent="Cancel";
+b.onclick=()=>opCancelReg(r);acts.appendChild(b)}
+const rc=document.createElement("button");rc.type="button";rc.className="op-reg-btn receipt";
+rc.textContent="View receipt";rc.onclick=()=>viewReceipt(r.bookingId);acts.appendChild(rc);
+card.appendChild(acts);wrap.appendChild(card)})}
+
+async function opToggleCheckIn(reg,playerKey,on){
+try{await db.collection("openPlayRegs").doc(reg.id)
+.update({["checkedIn."+playerKey]:on?!0:firebase.firestore.FieldValue.delete()})}
+catch(e){console.error(e);toast("Could not update check-in.")}}
+
+async function opSetRegStatus(reg,status){
+try{await db.collection("openPlayRegs").doc(reg.id).update({status:status});
+toast("confirmed"===status?"Payment confirmed.":"Updated.")}
+catch(e){console.error(e);toast("Could not update. Please try again.")}}
+
+/* Cancelling gives the seats back to the session. */
+async function opCancelReg(reg){
+if(!confirm("Cancel this registration? The slots will be released back to the session."))return;
+const seats=Number(reg.slots||1);
+try{const batch=db.batch();
+batch.update(db.collection("openPlayRegs").doc(reg.id),{status:"cancelled"});
+batch.update(db.collection("openPlay").doc(reg.sessionId),
+{slotsTaken:firebase.firestore.FieldValue.increment(-seats)});
+await batch.commit();toast("Registration cancelled.")}
+catch(e){console.error(e);toast("Could not cancel. Please try again.")}}
 function opRenderCourts(selected){const wrap=$("opCourtList");wrap.innerHTML="";
 const sel=new Set(selected||[]);
 COURTS.forEach(c=>{const el=document.createElement("label");el.className="mc-court"+(sel.has(c.name)?" on":"");
@@ -1721,6 +1868,8 @@ $("notif").classList.add("show"),$("backdrop").classList.add("show")},$("notifCl
 $("backdrop").onclick=closeNotif,$("supClose").onclick=()=>$("supportOverlay").classList.remove("show"),
 $("courtModalClose").onclick=()=>closeCourtModal(),
 $("opNewBtn").onclick=()=>opNew(),
+$("opPlClose").onclick=()=>opClosePlayers(),
+$("opPlayersOverlay").onclick=e=>{e.target===$("opPlayersOverlay")&&opClosePlayers()},
 $("opModeTabs").querySelectorAll(".op-mode").forEach(b=>b.onclick=()=>opSetMode(b.dataset.mode)),
 $("opFrom").onchange=()=>opUpdateRepeatHint(),
 $("opTo").onchange=()=>opUpdateRepeatHint(),
