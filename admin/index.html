@@ -669,6 +669,10 @@ function closeSlotMenu(){$("slotMenu").classList.remove("show");SLOTMENU_CTX=nul
 function hm2minKey(k){const p=String(k||"").split(":");return 60*(Number(p[0])||0)+(Number(p[1])||0)}
 async function slotMenuToggle(){if(!SLOTMENU_CTX)return;const{court,slotKey,blocked}=SLOTMENU_CTX;
 closeSlotMenu();
+/* An Open Play session is what's closing this slot — clearing a manual block
+   here would do nothing, so say so instead of failing quietly. */
+if(blocked&&isOpenPlayCourtSlot(court,selectedDate,slotKey))
+return toast("This slot is held by an Open Play session. Edit the session to free it.");
 const cur=Array.isArray(court.blocks)?court.blocks.map(b=>({date:b.date,slots:(b.slots||[]).slice()})):[];
 let next;
 if(blocked){next=cur.map(b=>b.date===selectedDate?{date:b.date,slots:b.slots.filter(s=>s!==slotKey)}:b).filter(b=>b.slots.length>0)}
@@ -714,7 +718,10 @@ function watchOpenPlay(){if(opUnsub)opUnsub();
 opUnsub=db.collection("openPlay").onSnapshot(snap=>{OPENPLAY=[];
 snap.forEach(d=>OPENPLAY.push({id:d.id,...d.data()}));
 OPENPLAY.sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
-renderOpenPlay()},e=>{console.error(e);
+renderOpenPlay();
+/* Sessions close their courts, so the schedule grid has to redraw too. */
+if(COURTS.length)try{renderGrid();renderCourtStatus()}catch(e){}
+},e=>{console.error(e);
 $("opList").innerHTML='<div class="empty">Could not load sessions.</div>'})}
 
 function renderOpenPlay(){const wrap=$("opList");if(!wrap)return;
@@ -904,7 +911,19 @@ function renderSchedHead(){const t=$("schedHead");t.innerHTML="";const e=documen
 t.appendChild(n)})}function bkHoldMs(e){return e&&e.holdUntil&&e.holdUntil.toMillis?e.holdUntil.toMillis():0}
 function isLiveBooking(e){if(!e||"cancelled"===e.status)return!1;
 if("reserved"===e.status){const hu=bkHoldMs(e);return!(!hu||hu<Date.now())}return!0}
-function isCourtBlocked(court,date,slotKey){return!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}
+function isCourtBlocked(court,date,slotKey){
+if(!!court&&Array.isArray(court.blocks)&&court.blocks.some(b=>b&&b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey)))return!0;
+return isOpenPlayCourtSlot(court,date,slotKey)}
+/* A court running an Open Play session is closed to normal bookings, so the
+   grid should show it as blocked here too. */
+function isOpenPlayCourtSlot(court,date,slotKey){
+if(!court||!Array.isArray(OPENPLAY)||!OPENPLAY.length)return!1;
+const mins=opKey2Min(slotKey),slotLen=Number(SETTINGS.slotMinutes??60);
+return OPENPLAY.some(s=>{
+if(s.date!==date)return!1;
+if(!Array.isArray(s.courts)||!s.courts.includes(court.name))return!1;
+const st=opKey2Min(s.start),en=opKey2Min(s.end);
+return mins<en&&mins+slotLen>st})}
 function bkRank(e){return"confirmed"===e.status?3:"pending"===e.status?2:"reserved"===e.status?1:0}
 function renderGrid(){if(!SETTINGS||!COURTS.length)return void($("schedBody").innerHTML="")
 ;const t=buildSlots(),e=Number(SETTINGS.slotMinutes??60),n={};DAY.forEach(t=>{
