@@ -1,32 +1,7 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Book a Court</title> <script>
-/* ══════════════════════════════════════════════════════════════════════
-   LAYAW BOOKING SYSTEM — CLIENT CONFIG
-   ─────────────────────────────────────────────────────────────────────
-   This is the ONLY part of this file you edit for a new client.
-   Everything else (business name, colours, logo, hours, rates, contact)
-   comes from Firestore and is editable in the Owner Dashboard.
-
-   1. Create the client's Firebase project, then paste its web config here.
-      Firebase Console → Project settings → Your apps → Web app → Config
-   2. Register the site in App Check (reCAPTCHA v3) and paste the site key.
-      Firebase Console → App Check → Apps → Register
-   3. Paste the client's logo URL (used only as a fallback before Firestore
-      loads; the real logo is set in Owner Dashboard → Settings).
-
-   Use the SAME values in all pages: index.html, status.html, confirm.html,
-   admin/index.html, owner/index.html
-   ══════════════════════════════════════════════════════════════════════ */
-const firebaseConfig = {
-  apiKey:            "AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
-  authDomain:        "layaw-pickleball.firebaseapp.com",
-  projectId:         "layaw-pickleball",
-  storageBucket:     "layaw-pickleball.firebasestorage.app",
-  messagingSenderId: "940525720373",
-  appId:             "1:940525720373:web:dfbe3e353e1402bf27727c"
-};
-const APPCHECK_SITE_KEY = "6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09";
-const CLIENT_LOGO = "";
-</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--disabled:#64748B;--brand-l:#9DBBF5;--link:#7FA7F0;--open-bg:#15321F;--open-tx:#48A768;--open-bd:#205E37;--sel-bg:#15336B;--sel-tx:#FFFFFF;--sel-bd:#3B5CA0;--book-bg:#3E1A20;--book-tx:#E88A92;--book-bd:#6E2A31;--pend-bg:#3E3212;--pend-tx:#E0B93E;--pend-bd:#8A6A1E;--past-bg:#232C3B;--past-tx:#7E8CA0;--past-bd:#333F52;--input-bg:#0E1626;--input-line:#2E3B52;--input-focus:#3B5CA0;--info-bg:#132445;--info-line:#25406E;--info-tx:#AFC3E6;--btn-dis-bg:#232E42;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1"/> <title>Book a Court</title> <script>const firebaseConfig={apiKey:"AIzaSyB2wWZOPyhTLlGOhQldAh3wz5zIuDw1d8g",
+authDomain:"layaw-pickleball.firebaseapp.com",projectId:"layaw-pickleball",
+storageBucket:"layaw-pickleball.firebasestorage.app",messagingSenderId:"940525720373",
+appId:"1:940525720373:web:dfbe3e353e1402bf27727c"},APPCHECK_SITE_KEY="6LdUUUEtAAAAAFKWm6jVgCrCIOGWXiaC68LmmL09"</script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script> <link rel="preconnect" href="https://fonts.googleapis.com"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/> <style>:root{--navy:#0D2863;--navy-d:#0A1E4C;--green:#0D2863;--green-d:#0A1E4C;--btn-bd:#24407F;--bg:#0B1220;--card:#191c25;--elev:#1B2740;--line:#273248;--text:#F1F5F9;--text-2:#C3CEDD;--muted:#8A99AD;--disabled:#64748B;--brand-l:#9DBBF5;--link:#7FA7F0;--open-bg:#15321F;--open-tx:#48A768;--open-bd:#205E37;--sel-bg:#15336B;--sel-tx:#FFFFFF;--sel-bd:#3B5CA0;--book-bg:#3E1A20;--book-tx:#E88A92;--book-bd:#6E2A31;--pend-bg:#3E3212;--pend-tx:#E0B93E;--pend-bd:#8A6A1E;--past-bg:#232C3B;--past-tx:#7E8CA0;--past-bd:#333F52;--input-bg:#0E1626;--input-line:#2E3B52;--input-focus:#3B5CA0;--info-bg:#132445;--info-line:#25406E;--info-tx:#AFC3E6;--btn-dis-bg:#232E42;--cancel:#E88A92;--radius:16px;--shadow:0 12px 30px rgba(0,0,0,.45)}
 *{box-sizing:border-box;margin:0;padding:0}
 body,html{max-width:100%;overflow-x:hidden}
 body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -225,13 +200,69 @@ table.slots .time-cell{position:sticky;left:0;background:var(--card);z-index:2}
 @media (min-width:1001px){.grid-layout>div{position:sticky;top:18px;align-self:start}
 .table-scroll{max-height:calc(100vh - 240px);overflow-y:auto}
 }
+
+/* ── View toggle (Book a Court / Open Play) ───────────────────────── */
+.view-toggle{position:relative;display:flex;gap:4px;padding:5px;margin-bottom:18px;border-radius:14px;
+background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+border:1px solid rgba(255,255,255,.10);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 6px 20px rgba(0,0,0,.28);
+-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%)}
+.vt-btn{position:relative;flex:1;background:none;border:none;color:var(--muted);font:inherit;font-size:14px;font-weight:700;
+padding:12px 10px;border-radius:11px;cursor:pointer;text-align:center;width:auto;letter-spacing:.01em;
+transition:color .22s ease,background .22s ease,box-shadow .22s ease}
+.vt-btn:hover:not(.on){color:var(--text)}
+.vt-btn.on{color:#fff;
+background:linear-gradient(135deg,rgba(255,255,255,.20),rgba(255,255,255,.07));
+box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.16),0 3px 12px rgba(0,0,0,.24)}
+/* ── Open Play session cards ──────────────────────────────────────── */
+.op-daygroup{font-size:12.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 10px}
+.op-daygroup:first-child{margin-top:0}
+.op-sess{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;background:var(--card);padding:16px 18px;margin-bottom:12px}
+.op-sess.lv-green{border-left-color:#48A768}
+.op-sess.lv-yellow{border-left-color:#D4A32C}
+.op-sess.lv-orange{border-left-color:#E0954A}
+.op-sess.lv-red{border-left-color:#C2515E}
+.op-sess-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.op-sess-name{font-size:16.5px;font-weight:800;color:var(--text);line-height:1.35}
+.op-pill{margin-left:auto;flex:none;font-size:13px;font-weight:800;padding:6px 13px;border-radius:999px;white-space:nowrap}
+.op-pill.lv-green{background:rgba(72,167,104,.16);color:#48A768}
+.op-pill.lv-yellow{background:rgba(212,163,44,.16);color:#D4A32C}
+.op-pill.lv-orange{background:rgba(224,149,74,.16);color:#E0954A}
+.op-pill.lv-red{background:rgba(194,81,94,.16);color:#C2515E}
+.op-line{font-size:14px;color:var(--muted);line-height:1.65}
+.op-line strong{color:var(--text);font-weight:700}
+.op-desc{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}
+.op-join{width:100%;margin-top:14px;padding:13px;border:none;border-radius:11px;background:var(--teal,#0B97A6);color:#fff;font:inherit;font-weight:800;font-size:14.5px;cursor:pointer}
+.op-join:disabled{background:var(--elev);color:var(--muted);cursor:not-allowed}
+.op-empty{text-align:center;color:var(--muted);padding:52px 24px;font-size:14px;line-height:1.7}
+.op-empty-big{font-size:17px;font-weight:800;color:var(--text);margin-bottom:8px}
+
+/* ── Open Play checkout (session summary + guests) ────────────────── */
+.op-sum-meta{font-size:14px;color:var(--muted);line-height:1.7;margin:-4px 0 16px}
+.op-sum-meta strong{color:var(--text);font-weight:700}
+.op-guests{border-top:1px solid var(--line);padding-top:16px}
+.op-guests-head{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+.op-guests-count{text-transform:none;letter-spacing:0;font-weight:700;color:var(--text)}
+.op-you{display:flex;align-items:center;gap:8px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--input-bg);font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:8px}
+.op-you-tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.op-guest{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.op-guest input{flex:1;width:auto;padding:12px 14px;font-size:14.5px}
+.op-guest-x{flex:none;width:42px;height:42px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:10px;background:var(--input-bg);color:var(--muted);font-size:19px;font-weight:700;cursor:pointer;line-height:1}
+.op-guest-x:hover{color:var(--cancel);border-color:var(--cancel)}
+.op-add-guest{width:100%;padding:13px;border:1px dashed var(--line);border-radius:10px;background:none;color:var(--text);font:inherit;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px}
+.op-add-guest:hover{border-color:var(--teal,#0B97A6);color:var(--teal,#0B97A6)}
+.op-total-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;font-weight:700;color:var(--muted)}
+.op-total-amt{font-size:22px;font-weight:800;color:var(--text)}
 </style> </head> <body> <div id="iabBanner" style="display:none;position:sticky;top:0;z-index:60;background:#0B97A6;color:#fff;padding:12px 16px;font-size:13.5px;line-height:1.5;text-align:center;font-weight:600">For the best experience, open this page in your browser: tap the <strong>&#8942;</strong> or <strong>&hellip;</strong> menu, then choose <strong>&ldquo;Open in browser&rdquo;</strong> (Chrome or Safari).<button id="iabClose" style="margin-left:10px;background:rgba(255,255,255,.25);border:none;color:#fff;border-radius:6px;padding:3px 9px;font-weight:700;cursor:pointer">Got it</button></div> <div class="wrap"> <div class="brand"> <img id="logo" alt="" style="display:none"/> <div>
 <div class="eyebrow">Pickleball</div>
 <h1 id="bizName">Loading…</h1>
 </div> </div> <p class="subline" id="bizTagline">
 </p> <div id="heroWrap" class="hero-wrap" style="display:none">
 </div> <div id="loading" class="loading">Connecting to the booking system…<div id="loadHint" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.6">Taking longer than usual. If you opened this from Messenger or Facebook, tap the <strong>•••</strong> menu and choose <strong>“Open in browser”</strong> (Chrome or Safari) for the best experience.<br><br><button id="retryLoad" style="margin-top:8px;background:var(--teal,#0B97A6);color:#fff;border:none;border-radius:8px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer">Retry</button></div></div> <div id="errorBox" class="error-box" style="display:none">
-</div> <div id="app" style="display:none"> <div class="grid-layout"> <div> <div class="card"> <h3>Select a date</h3> <div class="cal-nav"> <button class="btn-ghost" id="prevMonth">‹</button> <button class="btn-ghost today" id="todayBtn">Today</button> <button class="btn-ghost" id="nextMonth">›</button> </div> <div class="cal-month" id="calMonth">
+</div> <div id="app" style="display:none"> <div class="view-toggle" id="viewToggle">
+<button type="button" class="vt-btn on" data-view="court">Book a Court</button>
+<button type="button" class="vt-btn" data-view="openplay">Open Play</button>
+</div> <div id="courtView"> <div class="grid-layout"> <div> <div class="card"> <h3>Select a date</h3> <div class="cal-nav"> <button class="btn-ghost" id="prevMonth">‹</button> <button class="btn-ghost today" id="todayBtn">Today</button> <button class="btn-ghost" id="nextMonth">›</button> </div> <div class="cal-month" id="calMonth">
 </div> <div class="cal-grid" id="calGrid">
 </div> <p class="cal-note" id="calNote">
 </p> </div> <div class="card" style="margin-top:16px"> <h3 class="sm">Slot legend</h3> <div class="legend"> <div class="item">
@@ -297,9 +328,19 @@ table.slots .time-cell{position:sticky;left:0;background:var(--card);z-index:2}
 <input id="voucherInput" placeholder="Voucher code" autocomplete="off"/>
 <button class="btn-apply" id="applyVoucherBtn">Apply voucher</button>
 </div> <div class="voucher-msg" id="voucherMsg">
-</div> </div> <button class="btn" id="continueBtn" disabled="disabled">Continue</button> <p class="sum-note">Your booking starts as pending until the club confirms it.</p> </div> </div> <div class="footer" id="footerLinks">
+</div> </div> <button class="btn" id="continueBtn" disabled="disabled">Continue</button> <p class="sum-note">Your booking starts as pending until the club confirms it.</p> </div> </div> </div> <div id="openPlayView" style="display:none">
+<div id="opFeed">
+<div class="op-empty">Loading sessions…</div>
+</div>
+</div> <div class="footer" id="footerLinks">
 </div> </div> <div id="checkoutView" class="checkout" style="display:none"> <button class="btn-ghost" id="backToSlots" style="margin-top:18px;margin-bottom:16px">‹ Back to slots</button> <div class="timer-bar" id="timerBar"> <span class="tb-ico">⏱️</span> <span class="tb-txt">
-<strong>TIME LEFT TO COMPLETE</strong>Finish your details &amp; payment before the timer ends.</span> <span class="tb-count" id="timerCount">05:00</span> </div> <div class="card"> <h3>Booker information</h3> <div class="field-gap">
+<strong>TIME LEFT TO COMPLETE</strong>Finish your details &amp; payment before the timer ends.</span> <span class="tb-count" id="timerCount">05:00</span> </div> <div class="card" id="opSummaryCard" style="display:none"> <h3 id="opSumName">Open Play</h3> <div class="op-sum-meta" id="opSumMeta"></div> <div class="op-guests">
+<div class="op-guests-head"><span>Who's coming</span><span class="op-guests-count" id="opGuestCount">1 player</span></div>
+<div class="op-you" id="opYouRow">You <span class="op-you-tag">Booker</span></div>
+<div id="opGuestList"></div>
+<button type="button" class="op-add-guest" id="opAddGuest">+ Add a guest</button>
+<div class="sum-note" style="margin-top:10px">Add anyone you're bringing. Each guest takes one slot.</div>
+</div> <div class="op-total-row"><span>Total</span><span class="op-total-amt" id="opTotalAmt">₱0</span></div> </div> <div class="card"> <h3>Booker information</h3> <div class="field-gap">
 <label class="fl">Full name</label>
 <input type="text" id="nameInput" placeholder="Juan Dela Cruz"/>
 </div> <div class="field-gap">
@@ -348,7 +389,20 @@ return"₱"+Number(e).toLocaleString("en-PH")}function darken(e,t){
 3===(e=String(e).replace("#","")).length&&(e=e.split("").map(e=>e+e).join(""));const o=parseInt(e,16)
 ;return"#"+[Math.round((o>>16&255)*t),Math.round((o>>8&255)*t),Math.round((255&o)*t)].map(e=>("0"+e.toString(16)).slice(-2)).join("")
 }function ck(e,t,o){return e+"|"+t+"|"+o}
-function isBlocked(court,date,slotKey){return Array.isArray(court.blocks)&&court.blocks.some(b=>b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey))}async function loadData(){if(db)try{
+function isBlocked(court,date,slotKey){
+if(Array.isArray(court.blocks)&&court.blocks.some(b=>b.date===date&&Array.isArray(b.slots)&&b.slots.includes(slotKey)))return!0;
+return isOpenPlaySlot(court,date,slotKey)}
+/* A court running an Open Play session is closed to normal bookings for the
+   session's hours — otherwise the same court could be sold twice. */
+function isOpenPlaySlot(court,date,slotKey){
+if(!Array.isArray(OPENPLAY)||!OPENPLAY.length)return!1;
+const mins=opKey2Min(slotKey),slotLen=Number(SETTINGS.slotMinutes??60);
+return OPENPLAY.some(s=>{
+if(s.date!==date)return!1;
+if(!Array.isArray(s.courts)||!s.courts.includes(court.name))return!1;
+const st=opKey2Min(s.start),en=opKey2Min(s.end);
+/* Overlap: the slot starts before the session ends and ends after it starts. */
+return mins<en&&mins+slotLen>st})}async function loadData(){if(db)try{
 const _to=(p,ms)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);
 const[e,t,rr,pp]=await _to(Promise.all([
 db.collection("settings").doc("config").get(),
@@ -360,7 +414,7 @@ db.collection("promos").get().catch(()=>null)
 ;!1!==t.active&&COURTS.push({id:e.id,name:t.name||"Court",status:t.status||"",blocks:Array.isArray(t.blocks)?t.blocks:[]})}),COURTS.sort((e,t)=>e.name.localeCompare(t.name)),
 !COURTS.length)return void showError("No active courts found.");RATES=[];if(rr)rr.forEach(e=>{const t=e.data();let o=hm2min(t.start),n=hm2min(t.end);n<=o&&(n+=1440),RATES.push({start:o,end:n,
 rate:Number(t.rate)})}),RATES.sort((e,t)=>e.start-t.start);PROMOS=[];if(pp)pp.forEach(e=>PROMOS.push({id:e.id,...e.data()}));applyTheme(),renderBrand(),startHero(),renderFooterLinks();const o=today();viewYear=o.getFullYear(),
-viewMonth=o.getMonth(),selectedDate=dstr(o),renderCalendar(),renderGridHead(),watchAvailability(),watchCourtsLive(),updateSummary(),
+viewMonth=o.getMonth(),selectedDate=dstr(o),renderCalendar(),renderGridHead(),watchAvailability(),watchCourtsLive(),watchOpenPlay(),updateSummary(),
 window.__clearLoadHint&&window.__clearLoadHint(),$("loading").style.display="none",$("app").style.display="block"}catch(e){console.error(e),
 showError("timeout"===e.message?"Couldn't connect. If you opened this from Messenger or Facebook, tap ••• and choose “Open in browser”, then try again.":"Failed to load data: "+(e.message||e))}}function applyTheme(){
 const e=document.documentElement.style,t=SETTINGS.colorPrimary||"#0D2863",o=SETTINGS.colorAccent||"#0D2863"
@@ -389,16 +443,14 @@ SETTINGS.instagramLink&&t.push('<a href="'+esc(SETTINGS.instagramLink)+'" target
 ;const o=e+(t.length?'<div class="footer-social">'+t.join('<span class="dot">•</span>')+"</div>":"")+('<div class="footer-meta"><button type="button" class="flink" data-doc="privacy">Privacy</button><span class="dot">·</span><button type="button" class="flink" data-doc="terms">Terms</button><span class="dot">·</span><a href="'+LAYAW_FB+'" target="_blank" rel="noopener">Built by Layaw System</a></div>')
 ;$("footerLinks").innerHTML=o,$("footerLinks2").innerHTML=o,document.querySelectorAll("[data-doc]").forEach(e=>{
 e.onclick=()=>openDoc(e.getAttribute("data-doc"))})}const DOC_PRIVACY={title:"Privacy Policy",
-html:'<p class="upd">Last updated: July 3, 2026</p>\n<h4>1. Introduction</h4>\n<p>Welcome to {{VENUE}}. This site is a white-label court booking experience powered by the Layaw System ("Platform"), operated by Layaw System ("we," "our," or "us"). {{VENUE}} is the venue you are booking with. For personal information processed through the Platform, Layaw System is the personal information controller. We follow the Data Privacy Act of 2012 (Republic Act No. 10173).</p>\n<p>When you submit a booking, you confirm that you have read and agree to this Privacy Policy. If you do not agree, please do not submit a booking. If you only browse without booking, we may still collect limited technical data (such as cookies or security logs).</p>\n<h4>2. When We Are Allowed to Use Your Information</h4>\n<p>We use your personal information only when the law allows, including when:</p>\n<ul><li>We need it to handle your booking (our agreement with you)</li><li>You consent — for example, when you submit a booking and agree to this Policy</li><li>We have a valid business need that respects your rights — such as preventing fraud or keeping the Platform secure</li><li>The law requires us to keep or use certain records</li></ul>\n<p>If we rely on your consent, you may withdraw it (Section 10). Some information is required to complete a booking; without it, we may not be able to confirm your reservation.</p>\n<h4>3. Information We Collect</h4>\n<p><strong>You provide:</strong></p>\n<ul><li><strong>Booking details:</strong> name, phone number, email, court choice, date and time, and booking reference</li><li><strong>Proof of payment:</strong> if the venue requires it, a receipt image you upload so the venue can verify your payment</li><li><strong>Messages to us:</strong> feedback, support requests, and other communications</li></ul>\n<p><strong>Collected automatically:</strong> usage data, device data (browser, OS, IP address), and cookies/local storage used for staff/owner sign-in, security, and preferences.</p>\n<p><strong>Payments — what we do not collect:</strong> we do not ask for your card number, e-wallet login, or bank credentials on our booking form. Paying the venue (cash, bank transfer, or QR such as GCash) happens directly with the venue. We do not process card payments. If you upload a receipt image, we store it only so the venue can confirm your payment.</p>\n<h4>4. Cookies and Outside Services We Use</h4>\n<p>We rely on trusted providers who may handle personal information only to perform their work for us:</p>\n<ul><li><strong>Google Firebase</strong> (Firestore, Authentication, App Check) — stores booking data, manages venue/staff sign-in, and verifies requests come from the real app. Data may be kept outside the Philippines.</li><li><strong>GitHub Pages</strong> — hosts the website; may log technical data such as IP addresses.</li><li><strong>Google reCAPTCHA v3</strong> — helps block bots and abuse.</li></ul>\n<h4>5. How We Use Your Information</h4>\n<ul><li>Run the booking Platform and manage your reservations</li><li>Send your booking details to the venue you chose</li><li>Send confirmations and booking-related messages</li><li>Verify a payment when you upload a receipt (status/reference only)</li><li>Improve the Platform, prevent fraud, and meet legal requirements in the Philippines</li></ul>\n<h4>6. Who We Share Information With</h4>\n<p>The venue you book with ({{VENUE}}) receives the details needed for your reservation and should use them only to run the venue. We may also share information with service providers (Section 4), for legal requests, in a business change (with notice where the law requires), or with your permission. <strong>We do not sell your personal information.</strong></p>\n<h4>7. How We Protect Your Information</h4>\n<ul><li>Encrypted connections (HTTPS)</li><li>Access controls that keep your contact details readable only by the venue\'s authorized managers and staff</li><li>Security monitoring and vendor review</li></ul>\n<p>No online system is perfectly secure, but we work to protect your information.</p>\n<h4>8. How Long We Keep Information</h4>\n<p>We keep information only as long as we need it — while your booking is active and for support, up to seven (7) years for records the law requires (tax, accounting, compliance), and a shorter time for logs. You may ask us to delete data we hold; we will comply where the law allows.</p>\n<h4>9. If a Data Breach Occurs</h4>\n<p>If we learn of a breach that could seriously harm people, we will contain it, assess it, and notify the National Privacy Commission and affected users when the law requires. If you think your information was exposed, contact us using Section 14.</p>\n<h4>10. Your Rights (Philippines)</h4>\n<p>Under the Data Privacy Act you may have the right to be informed, access, correct, delete or block, object, withdraw consent, seek damages, and complain to the NPC. To use these rights, contact us (Section 14). You can also visit privacy.gov.ph.</p>\n<h4>11. Users Under 18</h4>\n<p>The Platform is for users 18 and older. We do not knowingly collect information from children. If you think a child gave us personal information, contact us and we will delete it.</p>\n<h4>12. Data Stored Outside the Philippines</h4>\n<p>Some providers (such as Google Firebase) store or process data in other countries. When we send data abroad, we follow the Data Privacy Act and share only what is needed to run the Platform.</p>\n<h4>13. Changes to This Policy</h4>\n<p>We may update this Policy. The new version will appear here with a new "Last updated" date. For important changes, we may also show a notice on the Platform.</p>\n<h4>14. Contact Us</h4>\n<p><strong>Layaw System</strong> (platform operator)<br>Email: <a href="mailto:layawsystem@gmail.com">layawsystem@gmail.com</a><br>Facebook: <a href="https://www.facebook.com/profile.php?id=61591455718209" target="_blank" rel="noopener">Layaw System</a></p>\n<p><strong>{{VENUE}}</strong> (venue)<br>Email: <a href="mailto:{{VENUE_EMAIL}}">{{VENUE_EMAIL}}</a><br>Location: {{VENUE_ADDRESS}}</p>\n<h4>15. Governing Law</h4>\n<p>This Privacy Policy follows the laws of the Republic of the Philippines, including the Data Privacy Act of 2012 (RA 10173) and rules from the National Privacy Commission.</p>'
+html:'<p class="upd">Last updated: July 3, 2026</p>\n<h4>1. Introduction</h4>\n<p>Welcome to {{VENUE}}. This site is a white-label court booking experience powered by the Layaw System ("Platform"), operated by Layaw System ("we," "our," or "us"). {{VENUE}} is the venue you are booking with. For personal information processed through the Platform, Layaw System is the personal information controller. We follow the Data Privacy Act of 2012 (Republic Act No. 10173).</p>\n<p>When you submit a booking, you confirm that you have read and agree to this Privacy Policy. If you do not agree, please do not submit a booking. If you only browse without booking, we may still collect limited technical data (such as cookies or security logs).</p>\n<h4>2. When We Are Allowed to Use Your Information</h4>\n<p>We use your personal information only when the law allows, including when:</p>\n<ul><li>We need it to handle your booking (our agreement with you)</li><li>You consent — for example, when you submit a booking and agree to this Policy</li><li>We have a valid business need that respects your rights — such as preventing fraud or keeping the Platform secure</li><li>The law requires us to keep or use certain records</li></ul>\n<p>If we rely on your consent, you may withdraw it (Section 10). Some information is required to complete a booking; without it, we may not be able to confirm your reservation.</p>\n<h4>3. Information We Collect</h4>\n<p><strong>You provide:</strong></p>\n<ul><li><strong>Booking details:</strong> name, phone number, email, court choice, date and time, and booking reference</li><li><strong>Proof of payment:</strong> if the venue requires it, a receipt image you upload so the venue can verify your payment</li><li><strong>Messages to us:</strong> feedback, support requests, and other communications</li></ul>\n<p><strong>Collected automatically:</strong> usage data, device data (browser, OS, IP address), and cookies/local storage used for staff/owner sign-in, security, and preferences.</p>\n<p><strong>Payments — what we do not collect:</strong> we do not ask for your card number, e-wallet login, or bank credentials on our booking form. Paying the venue (cash, bank transfer, or QR such as GCash) happens directly with the venue. We do not process card payments. If you upload a receipt image, we store it only so the venue can confirm your payment.</p>\n<h4>4. Cookies and Outside Services We Use</h4>\n<p>We rely on trusted providers who may handle personal information only to perform their work for us:</p>\n<ul><li><strong>Google Firebase</strong> (Firestore, Authentication, App Check) — stores booking data, manages venue/staff sign-in, and verifies requests come from the real app. Data may be kept outside the Philippines.</li><li><strong>GitHub Pages</strong> — hosts the website; may log technical data such as IP addresses.</li><li><strong>Google reCAPTCHA v3</strong> — helps block bots and abuse.</li></ul>\n<h4>5. How We Use Your Information</h4>\n<ul><li>Run the booking Platform and manage your reservations</li><li>Send your booking details to the venue you chose</li><li>Send confirmations and booking-related messages</li><li>Verify a payment when you upload a receipt (status/reference only)</li><li>Improve the Platform, prevent fraud, and meet legal requirements in the Philippines</li></ul>\n<h4>6. Who We Share Information With</h4>\n<p>The venue you book with ({{VENUE}}) receives the details needed for your reservation and should use them only to run the venue. We may also share information with service providers (Section 4), for legal requests, in a business change (with notice where the law requires), or with your permission. <strong>We do not sell your personal information.</strong></p>\n<h4>7. How We Protect Your Information</h4>\n<ul><li>Encrypted connections (HTTPS)</li><li>Access controls that keep your contact details readable only by the venue\'s authorized managers and staff</li><li>Security monitoring and vendor review</li></ul>\n<p>No online system is perfectly secure, but we work to protect your information.</p>\n<h4>8. How Long We Keep Information</h4>\n<p>We keep information only as long as we need it — while your booking is active and for support, up to seven (7) years for records the law requires (tax, accounting, compliance), and a shorter time for logs. You may ask us to delete data we hold; we will comply where the law allows.</p>\n<h4>9. If a Data Breach Occurs</h4>\n<p>If we learn of a breach that could seriously harm people, we will contain it, assess it, and notify the National Privacy Commission and affected users when the law requires. If you think your information was exposed, contact us using Section 14.</p>\n<h4>10. Your Rights (Philippines)</h4>\n<p>Under the Data Privacy Act you may have the right to be informed, access, correct, delete or block, object, withdraw consent, seek damages, and complain to the NPC. To use these rights, contact us (Section 14). You can also visit privacy.gov.ph.</p>\n<h4>11. Users Under 18</h4>\n<p>The Platform is for users 18 and older. We do not knowingly collect information from children. If you think a child gave us personal information, contact us and we will delete it.</p>\n<h4>12. Data Stored Outside the Philippines</h4>\n<p>Some providers (such as Google Firebase) store or process data in other countries. When we send data abroad, we follow the Data Privacy Act and share only what is needed to run the Platform.</p>\n<h4>13. Changes to This Policy</h4>\n<p>We may update this Policy. The new version will appear here with a new "Last updated" date. For important changes, we may also show a notice on the Platform.</p>\n<h4>14. Contact Us</h4>\n<p><strong>Layaw System</strong> (platform operator)<br>Email: <a href="mailto:layawsystem@gmail.com">layawsystem@gmail.com</a><br>Facebook: <a href="https://www.facebook.com/profile.php?id=61591455718209" target="_blank" rel="noopener">Layaw System</a></p>\n<p><strong>{{VENUE}}</strong> (venue)<br>Email: <a href="mailto:{{VENUE_EMAIL}}">{{VENUE_EMAIL}}</a><br>Location: Mabalacat Logistics Center, Ninoy Aquino Highway, Brgy. Bundagul, Mabalacat City, Pampanga</p>\n<h4>15. Governing Law</h4>\n<p>This Privacy Policy follows the laws of the Republic of the Philippines, including the Data Privacy Act of 2012 (RA 10173) and rules from the National Privacy Commission.</p>'
 },DOC_TERMS={title:"Terms of Service",
-html:'<p class="upd">Last updated: July 3, 2026</p>\n<h4>1. Acceptance of Terms</h4>\n<p>By accessing or using this booking site ("Platform"), you agree to these Terms of Service ("Terms"). If you do not agree, please do not use the Platform. The Platform is provided by Layaw System ("we," "us," or "our"). {{VENUE}} is the venue operator for courts you book on this site.</p>\n<h4>2. Description of Service</h4>\n<p>The Platform lets you browse courts and time slots, book slots online, pay the venue directly via GCash or bank transfer and upload proof of payment, and receive booking confirmations once the venue confirms. The Platform facilitates bookings; it does not process card payments or hold funds.</p>\n<h4>3. Bookings and Accounts</h4>\n<p>To reserve a court, you provide your name, contact number, and email, and agree to give accurate information. You do not need an account to book. You must be at least 18 years old. Venue owners and staff access management tools through secured accounts and are responsible for keeping their credentials confidential.</p>\n<h4>4. Booking and Payment Terms</h4>\n<ul><li>A new booking starts as <strong>pending</strong> until the venue confirms it</li><li>Payment is made directly to the venue via GCash, bank transfer, or on-site cash — not through an online card processor on this Platform</li><li>When required, you upload a receipt so the venue can verify payment</li><li>Prices are shown in Philippine Pesos (PHP); the venue sets its own rates</li><li>Once reviewed, you receive a confirmation with a reference number you can check on the status page</li><li>Cancellations and refunds are determined by the venue</li><li>A pending booking that is not paid or confirmed within the venue\'s holding period may expire and be released to others</li></ul>\n<h4>5. Venue Terms</h4>\n<p>{{VENUE}} is responsible for accurate court information, keeping availability and pricing current, honoring confirmed bookings, maintaining safe courts, handling customer service, complying with laws, and not discriminating against players.</p>\n<h4>6. User Conduct</h4>\n<p>You agree not to use the Platform for illegal purposes, impersonate others, upload malware, attempt unauthorized access, scrape data, interfere with operations, post false content or fake proof of payment, or harass venue staff or other users.</p>\n<h4>7. Intellectual Property</h4>\n<p>The Platform, including its software and design, is the property of Layaw System or its licensors. You may not copy, modify, distribute, sell, or lease any part without our written permission. The venue keeps ownership of photos and content it uploads but grants Layaw System a non-exclusive license to display them to operate the booking service.</p>\n<h4>8. Disclaimers and Limitation of Liability</h4>\n<p>The Platform is provided "AS IS" and "AS AVAILABLE" without warranties of any kind. We do not guarantee it will be uninterrupted, secure, or error-free, that listings are accurate, or that bookings will be honored by the venue. To the maximum extent permitted by law, Layaw System is not liable for any indirect, incidental, special, consequential, or punitive damages, or loss of profits, data, or goodwill, arising from your use of or inability to use the Platform, unauthorized access, disputes with the venue, or interruptions.</p>\n<h4>9. Indemnification</h4>\n<p>You agree to indemnify and hold harmless Layaw System and its operators from claims, liabilities, damages, and expenses (including reasonable legal fees) arising from your use of the Platform, your violation of these Terms or third-party rights, or content you submit.</p>\n<h4>10. Termination</h4>\n<p>We may suspend or terminate access to the Platform at any time, with or without notice, including if we believe you have violated these Terms. Upon termination, your right to use the Platform ceases.</p>\n<h4>11. Dispute Resolution</h4>\n<p>These Terms are governed by the laws of the Republic of the Philippines. Disputes shall be resolved in the appropriate courts of the Philippines. Before filing any legal action, we encourage you to contact us to seek an informal resolution.</p>\n<h4>12. Changes to Terms</h4>\n<p>We may modify these Terms at any time and will post the updated Terms with a new "Last updated" date. Continued use after changes constitutes acceptance.</p>\n<h4>13. Severability</h4>\n<p>If any provision is found unenforceable, it will be limited or removed to the minimum extent necessary, and the remaining provisions stay in effect.</p>\n<h4>14. Entire Agreement</h4>\n<p>These Terms, together with our Privacy Policy, are the entire agreement between you and Layaw System regarding the Platform and supersede prior agreements.</p>\n<h4>15. Contact Information</h4>\n<p><strong>Layaw System</strong><br>Email: <a href="mailto:layawsystem@gmail.com">layawsystem@gmail.com</a><br>Facebook: <a href="https://www.facebook.com/profile.php?id=61591455718209" target="_blank" rel="noopener">Layaw System</a></p>\n<p><strong>{{VENUE}}</strong><br>Email: <a href="mailto:{{VENUE_EMAIL}}">{{VENUE_EMAIL}}</a><br>Location: {{VENUE_ADDRESS}}</p>'
-};function openDoc(e){const t="terms"===e?DOC_TERMS:DOC_PRIVACY;$("docTitle").textContent=t.title,
-/* The {{VENUE...}} tokens are filled from Firestore (Owner Dashboard -> Settings).
-   Replace the longer tokens first so they aren't partially matched. */
-$("docBody").innerHTML=String(t.html)
-.split("{{VENUE_ADDRESS}}").join(esc((SETTINGS&&(SETTINGS.address||SETTINGS.addressName))||"—"))
-.split("{{VENUE_EMAIL}}").join(esc((SETTINGS&&SETTINGS.notifyEmail)||"—"))
-.split("{{VENUE}}").join(esc((SETTINGS&&SETTINGS.businessName)||"the venue")),$("docBody").scrollTop=0,$("docOverlay").classList.add("show")}function closeDoc(){
+html:'<p class="upd">Last updated: July 3, 2026</p>\n<h4>1. Acceptance of Terms</h4>\n<p>By accessing or using this booking site ("Platform"), you agree to these Terms of Service ("Terms"). If you do not agree, please do not use the Platform. The Platform is provided by Layaw System ("we," "us," or "our"). {{VENUE}} is the venue operator for courts you book on this site.</p>\n<h4>2. Description of Service</h4>\n<p>The Platform lets you browse courts and time slots, book slots online, pay the venue directly via GCash or bank transfer and upload proof of payment, and receive booking confirmations once the venue confirms. The Platform facilitates bookings; it does not process card payments or hold funds.</p>\n<h4>3. Bookings and Accounts</h4>\n<p>To reserve a court, you provide your name, contact number, and email, and agree to give accurate information. You do not need an account to book. You must be at least 18 years old. Venue owners and staff access management tools through secured accounts and are responsible for keeping their credentials confidential.</p>\n<h4>4. Booking and Payment Terms</h4>\n<ul><li>A new booking starts as <strong>pending</strong> until the venue confirms it</li><li>Payment is made directly to the venue via GCash, bank transfer, or on-site cash — not through an online card processor on this Platform</li><li>When required, you upload a receipt so the venue can verify payment</li><li>Prices are shown in Philippine Pesos (PHP); the venue sets its own rates</li><li>Once reviewed, you receive a confirmation with a reference number you can check on the status page</li><li>Cancellations and refunds are determined by the venue</li><li>A pending booking that is not paid or confirmed within the venue\'s holding period may expire and be released to others</li></ul>\n<h4>5. Venue Terms</h4>\n<p>{{VENUE}} is responsible for accurate court information, keeping availability and pricing current, honoring confirmed bookings, maintaining safe courts, handling customer service, complying with laws, and not discriminating against players.</p>\n<h4>6. User Conduct</h4>\n<p>You agree not to use the Platform for illegal purposes, impersonate others, upload malware, attempt unauthorized access, scrape data, interfere with operations, post false content or fake proof of payment, or harass venue staff or other users.</p>\n<h4>7. Intellectual Property</h4>\n<p>The Platform, including its software and design, is the property of Layaw System or its licensors. You may not copy, modify, distribute, sell, or lease any part without our written permission. The venue keeps ownership of photos and content it uploads but grants Layaw System a non-exclusive license to display them to operate the booking service.</p>\n<h4>8. Disclaimers and Limitation of Liability</h4>\n<p>The Platform is provided "AS IS" and "AS AVAILABLE" without warranties of any kind. We do not guarantee it will be uninterrupted, secure, or error-free, that listings are accurate, or that bookings will be honored by the venue. To the maximum extent permitted by law, Layaw System is not liable for any indirect, incidental, special, consequential, or punitive damages, or loss of profits, data, or goodwill, arising from your use of or inability to use the Platform, unauthorized access, disputes with the venue, or interruptions.</p>\n<h4>9. Indemnification</h4>\n<p>You agree to indemnify and hold harmless Layaw System and its operators from claims, liabilities, damages, and expenses (including reasonable legal fees) arising from your use of the Platform, your violation of these Terms or third-party rights, or content you submit.</p>\n<h4>10. Termination</h4>\n<p>We may suspend or terminate access to the Platform at any time, with or without notice, including if we believe you have violated these Terms. Upon termination, your right to use the Platform ceases.</p>\n<h4>11. Dispute Resolution</h4>\n<p>These Terms are governed by the laws of the Republic of the Philippines. Disputes shall be resolved in the appropriate courts of the Philippines. Before filing any legal action, we encourage you to contact us to seek an informal resolution.</p>\n<h4>12. Changes to Terms</h4>\n<p>We may modify these Terms at any time and will post the updated Terms with a new "Last updated" date. Continued use after changes constitutes acceptance.</p>\n<h4>13. Severability</h4>\n<p>If any provision is found unenforceable, it will be limited or removed to the minimum extent necessary, and the remaining provisions stay in effect.</p>\n<h4>14. Entire Agreement</h4>\n<p>These Terms, together with our Privacy Policy, are the entire agreement between you and Layaw System regarding the Platform and supersede prior agreements.</p>\n<h4>15. Contact Information</h4>\n<p><strong>Layaw System</strong><br>Email: <a href="mailto:layawsystem@gmail.com">layawsystem@gmail.com</a><br>Facebook: <a href="https://www.facebook.com/profile.php?id=61591455718209" target="_blank" rel="noopener">Layaw System</a></p>\n<p><strong>{{VENUE}}</strong><br>Email: <a href="mailto:{{VENUE_EMAIL}}">{{VENUE_EMAIL}}</a><br>Location: Mabalacat Logistics Center, Ninoy Aquino Highway, Brgy. Bundagul, Mabalacat City, Pampanga</p>'
+};function docFill(html){const v=(SETTINGS&&SETTINGS.businessName)||"this venue",
+e=(SETTINGS&&SETTINGS.contactEmail)||"the venue";
+return String(html).split("{{VENUE_EMAIL}}").join(esc(e)).split("{{VENUE}}").join(esc(v))}
+function openDoc(e){const t="terms"===e?DOC_TERMS:DOC_PRIVACY;$("docTitle").textContent=t.title,
+$("docBody").innerHTML=docFill(t.html),$("docBody").scrollTop=0,$("docOverlay").classList.add("show")}function closeDoc(){
 $("docOverlay").classList.remove("show")}function advanceDays(){return Math.min(Number(SETTINGS.advanceDays??30),30)}
 function maxDate(){const e=today();return e.setDate(e.getDate()+advanceDays()),e}function dateHasCart(e){
 for(const t of cart)if(t.slice(0,10)===e)return!0;return!1}function renderCalendar(){
@@ -427,6 +479,222 @@ var arr=[];snap.forEach(function(d){var t=d.data();if(!1!==t.active)arr.push({id
 arr.sort(function(a,b){return a.name.localeCompare(b.name)});COURTS=arr;
 try{renderGridHead();renderGrid()}catch(e){}
 },function(e){console.warn("courts watch:",e)})}
+
+/* ══════════════════════════════════════════════════════════════════
+   OPEN PLAY — public session list
+   Players join a session instead of booking a whole court. The card
+   colour and counter follow how full the session is.
+   ══════════════════════════════════════════════════════════════════ */
+let OPENPLAY=[],opUnsub=null,CURRENT_VIEW="court",OP_LOADED=!1;
+
+function opKey2Min(k){const p=String(k||"").split(":");return 60*(Number(p[0])||0)+(Number(p[1])||0)}
+function opLevel(taken,max){if(!max)return"green";const pct=taken/max*100;
+return pct>=100?"red":pct>=75?"orange":pct>=50?"yellow":"green"}
+function opDurationLabel(start,end){const mins=opKey2Min(end)-opKey2Min(start);
+if(mins<=0)return"";const h=Math.floor(mins/60),m=mins%60;
+return h&&m?h+"h "+m+"m":h?h+(1===h?" hour":" hours"):m+" mins"}
+
+function setView(view){CURRENT_VIEW=view;
+document.querySelectorAll(".vt-btn").forEach(b=>b.classList.toggle("on",b.dataset.view===view));
+$("courtView").style.display="openplay"===view?"none":"block";
+$("openPlayView").style.display="openplay"===view?"block":"none";
+/* The subline describes whichever view you're in. */
+const tag=$("bizTagline");
+if(tag)tag.textContent="openplay"===view?"Jump into a session. No court booking needed."
+:((SETTINGS&&SETTINGS.tagline)||"");
+/* The sticky totals bar belongs to court booking only. */
+const mb=$("mobileBar");
+if(mb)mb.style.display="openplay"===view?"none":(window.innerWidth<=1e3?"flex":"none");
+if("openplay"===view)renderOpenPlay()}
+
+function watchOpenPlay(){if(opUnsub)opUnsub();
+opUnsub=db.collection("openPlay").onSnapshot(snap=>{OPENPLAY=[];OP_LOADED=!0;
+snap.forEach(d=>{const v=d.data();if(!1!==v.active)OPENPLAY.push({id:d.id,...v})});
+OPENPLAY.sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+renderOpenPlay();
+/* Sessions close their courts, so the court grid has to redraw too. */
+if(COURTS.length)try{renderGrid();updateSummary()}catch(e){}
+},e=>{console.error("openPlay listener:",e);
+$("opFeed").innerHTML='<div class="op-empty"><div class="op-empty-big">Couldn\'t load the schedule</div>'
++esc(e&&e.code?e.code:"Please refresh and try again.")+"</div>"})}
+
+function renderOpenPlay(){const wrap=$("opFeed");if(!wrap)return;
+if(!OP_LOADED){wrap.innerHTML='<div class="op-empty">Loading sessions…</div>';return}
+const todayKey=dstr(today());
+/* Past sessions are dropped — players can only join what's ahead. */
+const list=OPENPLAY.filter(s=>s.date>=todayKey);
+if(!list.length){wrap.innerHTML='<div class="op-empty"><div class="op-empty-big">Nothing on the schedule</div>No Open Play sessions posted yet. Check back soon — or book a court and start your own game.</div>';return}
+wrap.innerHTML="";let lastDate="";
+list.forEach(s=>{
+if(s.date!==lastDate){lastDate=s.date;const h=document.createElement("div");
+h.className="op-daygroup";h.textContent=(s.date===todayKey?"Today · ":"")+niceDateShort(s.date);
+wrap.appendChild(h)}
+const taken=Number(s.slotsTaken||0),max=Number(s.maxSlots||0),lv=opLevel(taken,max),
+full=max>0&&taken>=max,left=Math.max(0,max-taken);
+const card=document.createElement("div");card.className="op-sess lv-"+lv;
+const dur=opDurationLabel(s.start,s.end);
+card.innerHTML='<div class="op-sess-top"><div class="op-sess-name">'+esc(s.name||"Open Play")+"</div>"
++'<div class="op-pill lv-'+lv+'">'+taken+"/"+(max||"—")+"</div></div>"
++'<div class="op-line"><strong>'+hourLabel(opKey2Min(s.start))+" – "+hourLabel(opKey2Min(s.end))+"</strong>"
++(dur?" · "+dur:"")+"</div>"
++'<div class="op-line">'+esc((s.courts||[]).join(", ")||"Courts to be announced")+"</div>"
++'<div class="op-line"><strong>'+peso(Number(s.fee||0))+"</strong> per player</div>"
++(s.desc?'<div class="op-desc">'+esc(s.desc)+"</div>":"");
+const btn=document.createElement("button");btn.className="op-join";
+btn.textContent=full?"FULL":(left<=5?"Join · "+left+" left":"Join this session");
+btn.disabled=full;
+btn.onclick=()=>opJoin(s);
+card.appendChild(btn);wrap.appendChild(card)})}
+
+/* ── Open Play: joining a session ─────────────────────────────────── */
+let OP_SESSION=null,OP_GUESTS=[],opHoldTimer=null,opReservedId=null;
+
+function opSlotCount(){return 1+OP_GUESTS.length}
+function opTotal(){return opSlotCount()*Number(OP_SESSION&&OP_SESSION.fee||0)}
+
+function opRenderGuests(){const wrap=$("opGuestList");if(!wrap)return;
+wrap.innerHTML="";
+OP_GUESTS.forEach((name,idx)=>{const row=document.createElement("div");row.className="op-guest";
+const inp=document.createElement("input");inp.type="text";inp.placeholder="Guest name";
+inp.value=name;inp.oninput=()=>{OP_GUESTS[idx]=inp.value};
+const x=document.createElement("button");x.type="button";x.className="op-guest-x";
+x.textContent="×";x.title="Remove";x.onclick=()=>{OP_GUESTS.splice(idx,1);opRenderGuests()};
+row.appendChild(inp);row.appendChild(x);wrap.appendChild(row)});
+const n=opSlotCount();
+$("opGuestCount").textContent=n+(1===n?" player":" players");
+$("opTotalAmt").textContent=peso(opTotal())}
+
+function opAddGuest(){const max=Number(OP_SESSION&&OP_SESSION.maxSlots||0),
+taken=Number(OP_SESSION&&OP_SESSION.slotsTaken||0),room=max?max-taken:99;
+if(opSlotCount()>=room)return toast(room<=1?"Only one slot left in this session.":"Only "+room+" slots left in this session.");
+OP_GUESTS.push("");opRenderGuests();
+const inputs=$("opGuestList").querySelectorAll("input");
+if(inputs.length)inputs[inputs.length-1].focus()}
+
+function opJoin(sess){const max=Number(sess.maxSlots||0),taken=Number(sess.slotsTaken||0);
+if(max&&taken>=max)return toast("This session is full.");
+OP_SESSION=sess;OP_GUESTS=[];opReservedId=null;
+$("opSumName").textContent=sess.name||"Open Play";
+$("opSumMeta").innerHTML="<strong>"+esc(niceDateShort(sess.date))+"</strong><br>"
++hourLabel(opKey2Min(sess.start))+" – "+hourLabel(opKey2Min(sess.end))
++"<br>"+esc((sess.courts||[]).join(", ")||"Courts to be announced")
++"<br><strong>"+peso(Number(sess.fee||0))+"</strong> per player";
+opRenderGuests();
+/* Reuse the court checkout screen — same fields, same payment step. */
+$("opSummaryCard").style.display="block";
+$("submitBtn").textContent="Confirm & Join";
+$("app").style.display="none";$("checkoutView").style.display="block";
+$("mobileBar").style.display="none";
+renderPayMethods();window.scrollTo({top:0,behavior:"smooth"});
+opHoldSeats()}
+
+/* Hold the seats as soon as checkout opens, then run the same countdown
+   the court flow uses. */
+async function opHoldSeats(){const btn=$("submitBtn");btn.disabled=!0;
+try{await opReserve();btn.disabled=!1;startOpHoldTimer()}
+catch(e){console.error(e);btn.disabled=!1;
+toast(e&&e.message?e.message:"Could not hold your slots. Please try again.");
+opBackToList()}}
+
+function opBackToList(){clearOpHoldTimer();OP_SESSION=null;OP_GUESTS=[];opReservedId=null;
+$("opSummaryCard").style.display="none";$("checkoutView").style.display="none";
+$("app").style.display="block";$("submitBtn").textContent="Submit Booking";
+setView("openplay")}
+
+function startOpHoldTimer(){clearOpHoldTimer();
+let left=60*holdMins();
+const bar=$("timerBar"),count=$("timerCount");
+if(bar)bar.style.display="flex";
+const tick=()=>{if(left<=0){clearOpHoldTimer();opRelease();
+toast("Your hold expired. Please join again.");opBackToList();return}
+const m=Math.floor(left/60),s2=left%60;
+if(count)count.textContent=pad2(m)+":"+pad2(s2);left--};
+tick();opHoldTimer=setInterval(tick,1e3)}
+
+/* Reserve seats atomically so two people can't take the last slot. */
+/* Finalize an Open Play join: flip the held registration to pending and
+   write the contact doc, which is what triggers the notification emails. */
+async function opSubmit(name,contact,email,btn){
+if(!opReservedId){btn.disabled=!1;btn.textContent="Confirm & Join";
+return toast("Your hold expired. Please join again.")}
+const bid=opReservedId,sessionId=OP_SESSION.id;
+const guests=OP_GUESTS.map(g=>String(g||"").trim()).filter(Boolean);
+const wantSeats=1+guests.length;
+try{const snap=await db.collection("openPlayRegs").where("bookingId","==",bid).get();
+if(snap.empty){btn.disabled=!1;btn.textContent="Confirm & Join";
+return toast("Your hold expired. Please join again.")}
+const regRef=snap.docs[0].ref,heldSeats=Number(snap.docs[0].data().slots||1);
+/* Guests are added after the hold is taken, so settle the difference here —
+   inside a transaction, so a late guest can't push the session over capacity. */
+const extra=wantSeats-heldSeats;
+if(extra!==0){const sessRef=db.collection("openPlay").doc(sessionId);
+await db.runTransaction(async tx=>{const sn=await tx.get(sessRef);
+if(!sn.exists)throw new Error("This session is no longer available.");
+const d=sn.data(),max=Number(d.maxSlots||0),taken=Number(d.slotsTaken||0);
+if(extra>0&&max&&taken+extra>max){const left=Math.max(0,max-taken);
+throw new Error(left?"Only "+left+" more slot"+(1===left?"":"s")+" left in this session.":"This session is now full.")}
+tx.update(sessRef,{slotsTaken:Math.max(0,taken+extra)})})}
+const batch=db.batch();
+batch.update(regRef,{status:"pending",
+paymentMethod:chosenPayment||"",
+guests:guests,slots:wantSeats,
+amount:wantSeats*Number(OP_SESSION.fee||0),
+holdUntil:firebase.firestore.FieldValue.delete()});
+batch.set(db.collection("bookingContacts").doc(bid),{bookingId:bid,
+bookerName:name,contact:contact,email:email,
+openPlay:!0,sessionName:OP_SESSION.name||"Open Play",
+createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+await batch.commit();
+if(receiptData)try{await db.collection("receipts").doc(bid).set({bookingId:bid,image:receiptData,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){console.warn("receipt save failed",e)}
+clearOpHoldTimer();
+opShowSuccess(bid)}
+catch(e){console.error("openPlay submit:",e);btn.disabled=!1;btn.textContent="Confirm & Join";
+/* Capacity messages are worth showing as-is. A permission error means the
+   rules are behind the app, which is worth naming rather than hiding. */
+const msg=e&&e.message?e.message:"";
+toast(/slot|full|available/i.test(msg)?msg
+:"permission-denied"===(e&&e.code)?"This venue's booking rules need updating. Please contact the venue."
+:"Could not complete your booking. Please try again.")}}
+
+function opShowSuccess(bid){OP_SESSION=null;OP_GUESTS=[];opReservedId=null;
+$("checkoutView").style.display="none";
+$("opSummaryCard").style.display="none";
+$("successView").style.display="block";
+const ref=$("successId");if(ref)ref.textContent=bid;
+window.scrollTo({top:0,behavior:"smooth"})}
+
+function clearOpHoldTimer(){if(opHoldTimer){clearInterval(opHoldTimer);opHoldTimer=null}}
+
+/* Give up the seats if the player backs out or the hold runs out. */
+async function opRelease(){if(!opReservedId||!OP_SESSION)return;
+const bid=opReservedId,sessionId=OP_SESSION.id;opReservedId=null;
+try{const snap=await db.collection("openPlayRegs").where("bookingId","==",bid).get();
+if(snap.empty)return;
+let seats=0;snap.forEach(d=>{const v=d.data();if("reserved"===v.status)seats+=Number(v.slots||0)});
+const batch=db.batch();snap.forEach(d=>{if("reserved"===d.data().status)batch.delete(d.ref)});
+if(seats>0)batch.update(db.collection("openPlay").doc(sessionId),
+{slotsTaken:firebase.firestore.FieldValue.increment(-seats)});
+await batch.commit()}
+catch(e){console.warn("open play release:",e)}}
+async function opReserve(){const bid=await nextBookingId();
+const seats=opSlotCount(),ref=db.collection("openPlay").doc(OP_SESSION.id);
+await db.runTransaction(async tx=>{const snap=await tx.get(ref);
+if(!snap.exists)throw new Error("This session is no longer available.");
+const d=snap.data(),max=Number(d.maxSlots||0),taken=Number(d.slotsTaken||0);
+if(max&&taken+seats>max){const left=Math.max(0,max-taken);
+throw new Error(left?"Only "+left+" slot"+(1===left?"":"s")+" left in this session.":"This session is full.")}
+tx.update(ref,{slotsTaken:taken+seats});
+const reg=db.collection("openPlayRegs").doc();
+tx.set(reg,{bookingId:bid,sessionId:OP_SESSION.id,sessionName:OP_SESSION.name||"Open Play",
+date:OP_SESSION.date,start:OP_SESSION.start,end:OP_SESSION.end,
+courts:OP_SESSION.courts||[],slots:seats,
+guests:OP_GUESTS.map(g=>String(g||"").trim()).filter(Boolean),
+amount:seats*Number(OP_SESSION.fee||0),status:"reserved",
+holdUntil:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+6e4*holdMins())),
+createdAt:firebase.firestore.FieldValue.serverTimestamp()})});
+opReservedId=bid;return bid}
+
 function watchAvailability(){db&&(availUnsub&&(availUnsub(),availUnsub=null),
 availUnsub=db.collection("bookings").where("date","==",selectedDate).onSnapshot(e=>{bookedSet=new Set,
 pendingSet=new Set;const now=Date.now();e.forEach(e=>{const t=e.data();if("cancelled"===t.status)return
@@ -570,8 +838,12 @@ window.innerWidth<=1e3&&($("mobileBar").style.display="flex"),$("nameInput").val
 $("emailInput").value="",appliedPromo=null,$("voucherInput")&&($("voucherInput").value=""),setVoucherMsg("",!0),
 $("receiptPreview").style.display="none";const e=$("uploadBox").querySelector(".big")
 ;e&&(e.textContent="☁️ Tap to upload image"),renderGrid(),updateSummary(),renderCalendar(),window.scrollTo({top:0,
-behavior:"smooth"})},$("continueBtn").onclick=goCheckout,$("mbContinue").onclick=goCheckout,
-$("backToSlots").onclick=async()=>{clearHoldTimer();await releaseReservation();$("checkoutView").style.display="none",$("app").style.display="block",
+behavior:"smooth"})},document.querySelectorAll(".vt-btn").forEach(b=>b.onclick=()=>setView(b.dataset.view)),
+$("opAddGuest").onclick=()=>opAddGuest(),
+$("continueBtn").onclick=goCheckout,$("mbContinue").onclick=goCheckout,
+$("backToSlots").onclick=async()=>{
+if(OP_SESSION){clearOpHoldTimer();await opRelease();opBackToList();return}
+clearHoldTimer();await releaseReservation();$("checkoutView").style.display="none",$("app").style.display="block",
 window.innerWidth<=1e3&&($("mobileBar").style.display="flex")},$("uploadBox").onclick=()=>$("receiptInput").click(),
 $("receiptInput").onchange=e=>{const t=e.target.files[0];if(!t)return
 ;if(t.size>5242880)return void toast("Image too large (max 5MB).");const o=new FileReader;o.onload=e=>{const t=new Image
@@ -587,6 +859,7 @@ const e=$("nameInput").value.trim(),t=$("contactInput").value.trim(),o=$("emailI
 ;if(paymentOptions().length&&!chosenPayment)return void toast("Please select a payment method.")
 ;if(paymentOptions().length&&!receiptData)return void toast("Please upload your payment receipt.")
 ;const n=$("submitBtn");n.disabled=!0,n.textContent="Submitting…";try{
+if(OP_SESSION){await opSubmit(e,t,o,n);return}
 /* The slots are already held by our reservation (goCheckout). Finalize it:
    flip each reserved doc to "pending" with its amount, then write the contact
    doc — which is what triggers the notification emails. No re-check needed. */
